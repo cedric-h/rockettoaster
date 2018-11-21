@@ -1,0 +1,39 @@
+{
+	"name": "rockettoaster",
+	"version": "0.0.0",
+	"description": "Webgame using HTML5 Canvas, Node.js, and WebSockets.",
+	"scripts": {
+		"test": "nodemon",
+		"build": "webpack --config webpack.prod.js",
+		"start": "start node ecsDirectoryUpdater.js & start nodemon index.js & webpack-dev-server --open --config webpack.dev.js",
+		"startClient": "webpack-dev-server --config webpack.dev.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "coming soon"
+	},
+	"keywords": [
+		"game",
+		"ecs",
+		"toasters"
+	],
+	"author": "Cedric Hutchings (and hopefully later et al.)",
+	"license": "SEE LICENSE IN license.md",
+	"private": true,
+	"dependencies": {
+		"entity-component-system": "^4.0.5",
+		"fs-extra": "^7.0.0",
+		"fse": "^4.0.1",
+		"present": "^1.0.0",
+		"ws": "^6.1.0"
+	},
+	"devDependencies": {
+		"css-loader": "^1.0.0",
+		"file-loader": "^2.0.0",
+		"style-loader": "^0.23.1",
+		"webpack": "^4.20.2",
+		"webpack-cli": "^3.1.2",
+		"webpack-dev-server": "^3.1.9",
+		"webpack-merge": "^4.1.4"
+	}
+}

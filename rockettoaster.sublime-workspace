@@ -1,0 +1,660 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fu",
+				"function"
+			],
+			[
+				"if",
+				"ife\tif … else"
+			],
+			[
+				"for",
+				"for\tfor (…) {…}"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "Packages/Rust Enhanced/RustEnhanced.sublime-build",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 71.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"reindent",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"package",
+				"Package Control: Install Package"
+			],
+			[
+				"remve",
+				"Package Control: Remove Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"theme",
+				"UI: Select Theme"
+			],
+			[
+				"discord",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"rename",
+				"Rename File"
+			],
+			[
+				"d",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"ui",
+				"UI: Select Color Scheme"
+			],
+			[
+				"ayu",
+				"ayu: Activate theme"
+			],
+			[
+				"conn",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"ui co",
+				"UI: Select Color Scheme"
+			],
+			[
+				"Rustfmt",
+				"RustFmt: Format Buffer"
+			],
+			[
+				"update",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"DISCORD",
+				"Discord Rich Presence: Reconnect to Discord"
+			],
+			[
+				"u",
+				"UI: Select Theme"
+			],
+			[
+				"Color Schem",
+				"UI: Select Color Scheme"
+			],
+			[
+				"Monoka",
+				"Monokai Pro: select theme"
+			],
+			[
+				"Color",
+				"UI: Select Color Scheme"
+			],
+			[
+				"Remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"scheme",
+				"UI: Select Color Scheme"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"discor",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"toml",
+				"Set Syntax: TOML"
+			],
+			[
+				"enhanced",
+				"Set Syntax: Rust Enhanced"
+			],
+			[
+				"format",
+				"RustFmt: Format Buffer"
+			],
+			[
+				"fmt",
+				"RustFmt: Format Buffer"
+			],
+			[
+				"settings",
+				"Preferences: Settings"
+			],
+			[
+				"Discord",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"discod",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"discr",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"disc",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"discord\t\t",
+				"Discord Rich Presence: Connect to Discord"
+			],
+			[
+				"word",
+				"Word Wrap: Toggle"
+			]
+		],
+		"width": 428.0
+	},
+	"console":
+	{
+		"height": 157.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/rockettoaster",
+		"/C/rockettoaster/src"
+	],
+	"file_history":
+	[
+		"/C/rockettoaster/index.js",
+		"/C/rockettoaster/node_modules/entity-component-system/lib/index.js",
+		"/C/rockettoaster/src/lib/object-pool.js",
+		"/C/rockettoaster/src/lib/entity-component-system.js",
+		"/C/rockettoaster/src/lib/index.js",
+		"/C/rockettoaster/src/lib/entity-pool.js",
+		"/C/rockettoaster/node_modules/entity-component-system/lib/object-pool.js",
+		"/C/rockettoaster/node_modules/entity-component-system/lib/entity-pool.js",
+		"/C/rockettoaster/src/grabEcsModules.js",
+		"/C/rockettoaster/src/.load.js.swn",
+		"/C/rockettoaster/src/.load.js.swo",
+		"/C/rockettoaster/src/.load.js.swp",
+		"/C/rockettoaster/src/.load.js.un~",
+		"/C/rockettoaster/src/load.js",
+		"/C/rockettoaster/src/load.js~",
+		"/C/rockettoaster/src/html.html",
+		"/C/flyingtoasters/src/style.css",
+		"/C/flyingtoasters/src/grabEcsModules.js",
+		"/C/flyingtoasters/src/load.js",
+		"/C/flyingtoasters/dist/index.html",
+		"/C/flyingtoasters/package.json",
+		"/C/flyingtoasters/webpack.prod.js",
+		"/C/flyingtoasters/webpack.dev.js",
+		"/C/flyingtoasters/webpack.common.js",
+		"/C/flyingtoasters/index.js",
+		"/C/flyingtoasters/src/print.js",
+		"/C/flyingtoasters/dist/main.js",
+		"/C/flyingtoasters/public/src/load.js",
+		"/C/flyingtoasters/public/index.html",
+		"/C/flyingtoasters/license.md",
+		"/C/projects/bromine/TPS/TPSgame.js",
+		"/C/projects/bromine/TPS/TPSphys.js",
+		"/C/projects/squaresOfLearning/public/page.html",
+		"/C/projects/squaresOfLearning/public/scripts/render.js",
+		"/C/projects/squaresOfLearning/public/scripts/connectTo.js",
+		"/C/projects/listBot/recordedLists.json",
+		"/C/projects/squaresOfLearning/public/scripts/cedlib.js",
+		"/C/projects/squaresOfLearning/public/scripts/main.js",
+		"/C/projects/squaresOfLearning/client.js",
+		"/C/projects/squaresOfLearning/server.js",
+		"/C/projects/listBot/undefined",
+		"/C/projects/rocket/rocket.html",
+		"/C/flyingtoasters/assets/legs.json",
+		"/C/Users/cedhu/Desktop/shrey.html",
+		"/C/projects/lab-master/broadcast.js",
+		"/C/projects/bhs_bored/interop/src/lib.rs",
+		"/C/projects/bhs_bored/interop/Cargo.toml",
+		"/C/projects/bhs_bored/client/src/main.rs",
+		"/C/projects/bhs_bored/client/Cargo.toml",
+		"/C/projects/bhs_bored/server/src/systems/add_new_players.rs",
+		"/C/projects/bhs_bored/server/src/systems/transmit_rendering_data.rs",
+		"/C/projects/bhs_bored/server/src/main.rs",
+		"/C/projects/bhs_bored/server/src/lib.rs",
+		"/C/projects/bhs_bored/server/Cargo.toml",
+		"/C/projects/_miscDiscordBots/rep/index.js",
+		"/C/Users/cedhu/Downloads/'The",
+		"/C/projects/discordBot/myBot.js",
+		"/C/projects/discordBot/node-reddit-scraper-master/index.js",
+		"/C/projects/bhs_bored/server/src/systems/mod.rs",
+		"/C/projects/bhs_bored/server/src/components/physics.rs",
+		"/C/projects/bhs_bored/server/src/components/client.rs",
+		"/C/projects/bhs_bored/server/src/systems/physics_step.rs",
+		"/C/projects/bhs_bored/server/src/resources.rs",
+		"/C/projects/bhs_bored/server/src/components/ground.rs",
+		"/C/projects/bhs_bored/server/src/components/mod.rs",
+		"/C/projects/bhs_bored/server/src/listen.rs",
+		"/C/projects/lab-master/gamedata/enemyFormations/hexFormation.json",
+		"/C/Users/cedhu/AppData/Roaming/Sublime Text 3/Packages/User/f64.sublime-snippet",
+		"/C/Program Files/Sublime Text 3/Packages/User/f64.sublime-snippet",
+		"/C/projects/bhs_bored/client/Cargo.lock",
+		"/C/projects/bhs_bored/server/Cargo.lock",
+		"/C/projects/bhs_bored/static/index.html",
+		"/C/projects/rust_stdweb/static/index.html",
+		"/C/projects/bhs_bored/src/main.rs",
+		"/C/projects/bhs_bored/Cargo.toml",
+		"/C/projects/rust_stdweb/src/main.rs",
+		"/C/projects/rust_stdweb/Cargo.toml",
+		"/C/projects/rust_piston/src/main_new.rs",
+		"/C/projects/rust_piston/Cargo.toml",
+		"/C/projects/rust_piston/src/main.rs",
+		"/C/projects/rust_piston_sdl2/Cargo.toml",
+		"/C/projects/rust_piston_sdl2/src/main.rs",
+		"/C/projects/rust_piston_sdl2/build.rs",
+		"/C/projects/rust_ggez/Cargo.toml",
+		"/C/projects/rust_piston/target/debug/rust_piston.exe",
+		"/C/Program Files/Sublime Text 3/sublime_text.exe",
+		"/C/projects/amethyst/examples/pong/pong.rs",
+		"/C/projects/amethyst/examples/pong/main.rs",
+		"/C/projects/amethyst/examples/pong/systems/paddle.rs",
+		"/C/projects/amethyst/examples/pong/resources/input_controller.ron",
+		"/C/projects/amethyst/examples/pong/systems/mod.rs",
+		"/C/projects/amethyst/examples/window/resources/display_config.ron",
+		"/C/projects/amethyst/examples/window/main.rs",
+		"/C/projects/rust_hello/src/main.rs",
+		"/C/projects/rust_ggez/build.rs",
+		"/C/projects/rust_ggez/src/main.rs",
+		"/C/projects/rust_hello/Cargo.toml",
+		"/C/projects/rust_hello_piston/Cargo.toml",
+		"/C/projects/rust_hello_piston/src/main.rs",
+		"/C/Users/cedhu/Desktop/pi/getting-started/Cargo.toml",
+		"/C/Users/cedhu/Desktop/pi/getting-started/src/main.rs",
+		"/C/projects/rust-hello/main.rs",
+		"/C/Users/cedhu/Desktop/pi/hello_world/hello_world.rs",
+		"/C/Users/cedhu/Desktop/pi/hello_world.rs",
+		"/C/projects/lab/systems/loginPlayer.js",
+		"/C/projects/lab/components/projectile.js",
+		"/C/projects/lab/public/assets/scenes/testRoom.json",
+		"/C/projects/lab/systems/enemies.js",
+		"/C/projects/lab/systems/enemies.jss",
+		"/C/projects/lab/systems/movePlayer.js",
+		"/C/projects/lab/public/js/components/velocityParameters.js",
+		"/C/projects/lab/public/js/systems/velocity.js",
+		"/C/projects/lab/public/js/systems/collidable.js",
+		"/C/projects/lab/public/js/components/collidable.js",
+		"/C/projects/lab/public/js/login.js",
+		"/C/projects/lab/public/js/systems/movementControls.js",
+		"/C/projects/lab/public/js/systems/cameraControls.js",
+		"/C/projects/lab/public/js/systems/renderModels.js",
+		"/C/projects/lab/public/js/systems/hitbox.js",
+		"/C/projects/lab/public/js/components/hitbox.js",
+		"/C/Users/cedhu/Downloads/scene.json",
+		"/C/projects/lab/public/assets/scenes/testRoomNoCollision.json",
+		"/C/projects/lab/systems/loadPlayer.js",
+		"/C/projects/lab/public/js/systems/collideable.js",
+		"/C/projects/lab/public/js/systems/movementUpdate.js",
+		"/C/projects/lab/public/js/components/movementControls.js",
+		"/C/projects/lab/public/js/websocketsWrapperClient.js",
+		"/C/projects/lab/public/scenes/testRoom.json"
+	],
+	"find":
+	{
+		"height": 41.0
+	},
+	"find_in_files":
+	{
+		"height": 105.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"systemsLoaded",
+			"\t{",
+			"\n\t\t{",
+			"canvas",
+			"ecs",
+			"10",
+			"200",
+			"25",
+			"40",
+			"color",
+			"rectangleConfiguration",
+			"bear",
+			"uuid",
+			".x",
+			".y",
+			"rect[",
+			".y",
+			".x",
+			"]);",
+			"rectangles",
+			"rect",
+			"[0]",
+			"30",
+			"data",
+			"rectanglesCount",
+			"this",
+			"0.0325",
+			"0.05",
+			"height",
+			"width",
+			"60",
+			"rectangleParmeters",
+			"ctx",
+			"rectangle",
+			"player",
+			"connectTo",
+			"render",
+			"player",
+			"playerModel",
+			"physicsUpdate",
+			"rectBody",
+			"playerModelBody",
+			"squares",
+			"ws",
+			"na::",
+			"dimensions",
+			"enclose",
+			"getRenderDataNew",
+			";",
+			"physics_comp",
+			"RenderingUpdateData",
+			"move_existing",
+			"client",
+			"physicsComp",
+			"Instantiate",
+			"_",
+			"AddNewPlayers",
+			"-",
+			"add_new_players",
+			"newPlayer",
+			"physics",
+			"std::s",
+			"time_last_frame",
+			"resources::",
+			"ground_radius",
+			"::std::sync::",
+			"PhysicsStep",
+			"physics_step",
+			"receiver",
+			"nphys_world",
+			"DeltaTime",
+			";\n",
+			"//",
+			"web",
+			"transmitter",
+			"out",
+			"specs",
+			"computation_duration",
+			"0f64",
+			"Default",
+			"ReadStorage",
+			"Physics",
+			"HelloWorld",
+			"Physics",
+			"NphysWorld",
+			"world",
+			"position",
+			">();\n",
+			"_f64",
+			"100_f64",
+			"bhs_bored",
+			"context",
+			"position",
+			"canvas",
+			"i32",
+			"0_i32",
+			"LeftStickX",
+			"world",
+			"gilrs",
+			"input",
+			"m",
+			"M",
+			"m",
+			"mouse",
+			"W",
+			"input",
+			"control",
+			"controller",
+			"application_root_dir()",
+			"\\\\",
+			"/",
+			"position",
+			"body",
+			"size",
+			"MAIN_COUNTER_MAX",
+			"sub_coutner",
+			"j",
+			"i"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"\"*\"\n"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 41.0
+	},
+	"input":
+	{
+		"height": 45.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "rockettoaster.sublime-project",
+	"replace":
+	{
+		"height": 56.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"cedlib",
+				"squaresOfLearning\\public\\scripts\\cedlib.js"
+			],
+			[
+				"main.js",
+				"squaresOfLearning\\public\\scripts\\main.js"
+			],
+			[
+				"render.js",
+				"squaresOfLearning\\public\\scripts\\render.js"
+			],
+			[
+				"cedlib.js",
+				"squaresOfLearning\\public\\scripts\\cedlib.js"
+			],
+			[
+				"connectTo",
+				"squaresOfLearning\\public\\scripts\\connectTo.js"
+			],
+			[
+				"html",
+				"squaresOfLearning\\public\\page.html"
+			],
+			[
+				"page.html",
+				"squaresOfLearning\\public\\page.html"
+			],
+			[
+				"client.js",
+				"squaresOfLearning\\client.js"
+			],
+			[
+				"lib.rs",
+				"src\\lib.rs"
+			],
+			[
+				"client.rs",
+				"src\\components\\client.rs"
+			],
+			[
+				"systems.rs",
+				"src\\systems\\mod.rs"
+			],
+			[
+				"resources.rs",
+				"server\\src\\resources.rs"
+			],
+			[
+				"add_players\t",
+				"server\\src\\systems\\add_new_players.rs"
+			],
+			[
+				"components/mod",
+				"server\\src\\components\\mod.rs"
+			],
+			[
+				"resources",
+				"server\\src\\resources.rs"
+			],
+			[
+				"physics_step",
+				"server\\src\\systems\\physics_step.rs"
+			],
+			[
+				"game",
+				"public\\js\\game.js"
+			],
+			[
+				"3d",
+				"public\\js\\3Drendering.js"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\projects\\squaresOfLearning\\cedlib.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 204.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 592.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": false,
+	"side_bar_visible": true,
+	"side_bar_width": 165.0,
+	"status_bar_visible": false,
+	"template_settings":
+	{
+	}
+}

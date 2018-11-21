@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],[function(o,c){o.exports={factory:()=>({color:"black"})}}]]);

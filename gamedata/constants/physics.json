@@ -1,0 +1,4 @@
+{
+	"transmitKeys": ["interpolatedPosition", "interpolatedAngle", "velocity"],
+	"recieveKeys": ["position", "angle", "velocity"]
+}
