@@ -24,6 +24,7 @@ entities.emitter.on('loaded', () => {
 				document.body.removeChild(teamDiv)
 			);
 
+			entities.emitter.emit('teamChosen');
 			server.emit('teamChosen', {
 				team: color
 			});

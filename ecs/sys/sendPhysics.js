@@ -9,7 +9,7 @@ setInterval(() => {
 	entities.find('body').forEach(entity => {
 		let body = entities.getComponent(entity, "body");
 
-		if(body.sleepState === 0) {
+		if(body.sleepState === 0 && entities.getComponent(entity, "physicsConfig").physical) {
 			//indexed by id so the clients know who exactly the information is for.
 			megapacket[entity] = {};
 

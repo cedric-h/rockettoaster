@@ -1,7 +1,8 @@
 const p2 = require('../../p2.min.js');
 
-function scalarLerp(a, b, t) {
-	return a + t * (b - a);
+function angleLerp(a, b, t) {
+	shortest_angle = ((((b - a) % (Math.PI*2)) + (Math.PI*3)) % (Math.PI*2)) - Math.PI;
+    return shortest_angle * t;
 }
 
 let serverPositions = {};
@@ -64,7 +65,7 @@ module.exports = {
 			}
 
 			if(key === "angle") {
-				value = scalarLerp(value, goalValue, delta);
+				value = angleLerp(value, goalValue, delta);
 			}
 		});
 	}

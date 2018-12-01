@@ -1,9 +1,16 @@
 const p2 = require('./../../p2.min');
 
 //configure physics world.
+//it's a resource, because it needs to be grabbable for raycasting
 let world = new p2.World({
 	gravity: [0, -3,82]
 });
+
+if(typeof window !== "undefined")
+	window.world = world;
+
+else
+	global.world = world;
 
 //add a ground
 let ground = new p2.Body();
@@ -29,12 +36,16 @@ entities.emitter.on('bodyCreate', entity => {
 		throw new Error("You can't add a body component to an entity without a physicsConfig component.");
 
 	physicsConfig.body.addShape(physicsConfig.shape);
-	world.addBody(physicsConfig.body)
+
+	if(physicsConfig.physical)
+		world.addBody(physicsConfig.body);
 
 	entities.entities[entity].body = physicsConfig.body;
 });
 
-entities.emitter.on('physicsConfigAddedFromServer', entity => {
+//ease of use. should be a func, but beats using the update loop to
+//listen for a .bodyFromBox flag being set on a physicsConfig object
+entities.emitter.on('bodyFromBox', entity => {
 	let physicsConfig = entities.getComponent(entity, 'physicsConfig');
 
 	physicsConfig.shape = new p2.Box(physicsConfig.shapeConfig);
@@ -43,9 +54,22 @@ entities.emitter.on('physicsConfigAddedFromServer', entity => {
 	entities.addComponent(entity, "body");
 });
 
+//this is a generic event called when a physicsConfig component
+//is added based on an instruction from the server, see addFromServer.js
+//anyway, for now we'll just call 'bodyFromBox'
+entities.emitter.on('physicsConfigAddedFromServer', entity => {
+	entities.emitter.emit('bodyFromBox', entity);
+
+	let physicsConfig = entities.getComponent(entity, "physicsConfig");
+	if(!physicsConfig.physical) {
+		let body = physicsConfig.body;
+		body.interpolatedPosition = body.position;
+		body.interpolatedAngle = body.angle;
+	}
+});
+
 
 module.exports = {
-	serverCompatible: true,
 	update: (entities, delta) => {
 		world.step(1/60, delta, 10);
 	}

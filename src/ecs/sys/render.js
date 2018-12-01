@@ -1,7 +1,9 @@
 const p2 = require('../../p2.min.js');
 const colors = require('../../gamedata/constants/colors.json');
+var appearances = [];
 
 var canvas, ctx;
+
 
 function resize() {
 	canvas.width  = window.innerWidth;
@@ -39,6 +41,27 @@ entities.emitter.on('loaded', () => {
 	window.addEventListener('resize', resize);
 });
 
+//We need to sort the appearances array by zIndex so that trees and clouds
+//appear over everything else, but that's an expensive sort to do.
+//since things are often spawned all at once, we wait a bit to see
+//if anything else will be spawned first. If nothing is, we add 'em in.
+var sortTimeout;
+entities.emitter.on('appearanceCreate', entity => {
+	let zIndex = entities.getComponent(entity, "appearance").zIndex;
+
+	appearances[zIndex === 0 ? "unshift" : "push"](entity);
+
+	clearTimeout(sortTimeout);
+	sortTimeout = setTimeout(
+		() => {
+			appearances = appearances.sort((a, b) => 
+				entities.getComponent(a, "appearance").zIndex - entities.getComponent(b, "appearance").zIndex
+			);
+		},
+		50
+	);
+});
+
 
 module.exports = {
 	update: () => {
@@ -70,14 +93,25 @@ module.exports = {
 		ctx.fillRect(-100, 0, 200, -10);
 
 		//great, now render each and every rectangle.
-		entities.find('appearance').forEach(entity => {
+		appearances.forEach(entity => {
 			let body       = entities.getComponent(entity, "body");
 			let appearance = entities.getComponent(entity, "appearance");
 
-			body.shapes.forEach(shape => {
-				ctx.fillStyle = appearance.color;
-				drawRectangle(body, shape);
-			});
+			if(body !== undefined)
+				body.shapes.forEach(shape => {
+					ctx.fillStyle = appearance.color;
+					drawRectangle(body, shape);
+				});
+
+			else if(appearance.type === "line") {
+				ctx.strokeStyle = appearance.color;
+				ctx.lineWidth = appearance.lineWidth;
+				//can't use ...appearance.coords[0] because float32 arrays aren't iterable
+				ctx.beginPath();
+				ctx.moveTo(appearance.coords[0][0], appearance.coords[0][1]);
+				ctx.lineTo(appearance.coords[1][0], appearance.coords[1][1]);
+				ctx.stroke();
+			}
 		});
 
 		ctx.restore();

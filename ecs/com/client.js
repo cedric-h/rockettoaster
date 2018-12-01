@@ -63,9 +63,6 @@ class Client extends EventEmitter {
 }
 
 module.exports = {
-	load: new Promise((resolve, reject) => {
-		resolve();
-	}),
 	factory: () => {
 		return new Client();
 	},

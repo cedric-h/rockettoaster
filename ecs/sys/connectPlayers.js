@@ -13,6 +13,7 @@ entities.emitter.on('loaded', () => {
 	});
 
 	wss.on('connection', ws => {
+		console.log('player connected!');
 		//make a new player
 		let newPlayer = entities.create();
 
@@ -38,7 +39,7 @@ function packetFromEntity(entity) {
 	let updatedBodyConfig = JSON.parse(JSON.stringify(physicsConfig.bodyConfig));
 	let body = entities.getComponent(entity, "body");
 
-	if(body) {
+	if(body && physicsConfig.physical) {
 		//copy over physics info, like position and angle, into bodyConfig
 		//so the body will start in a reasonable position.
 		physicsConstants.recieveKeys.forEach((key, index) => {
@@ -46,23 +47,20 @@ function packetFromEntity(entity) {
 		});
 	}
 
+
 	return [
 		{
 			name: "physicsConfig",
 			object: {
 				bodyConfig: updatedBodyConfig,
-				shapeConfig: physicsConfig.shapeConfig
+				shapeConfig: physicsConfig.shapeConfig,
+				physical: physicsConfig.physical
 			}
 		}, {
 			name: "serverId",
 			value: entity
-		}, {
-			name: "appearance",
-			object: {
-				color: colors.playerDefault
-			}
 		}
-	];
+	].concat(entities.getComponent(entity, "clientSideComponents"));
 }
 
 
@@ -84,9 +82,20 @@ function addPlayer(entity, team) {
 	);
 	physicsConfig.bodyConfig = {
 		mass: 5,
-		position: [0, 9]
+		position: [0, 24]
 	};
 	physicsConfig.body = new p2.Body(physicsConfig.bodyConfig);	
+
+	entities.addComponent(entity, "clientSideComponents");
+	let clientSideComponents = entities.getComponent(entity, "clientSideComponents")
+	clientSideComponents.push(...[
+		{
+			name: "appearance",
+			object: {
+				color: colors[team + "Team"]
+			}
+		},
+	]);
 
 
 	//now that we have all of the components we need, let's tell
@@ -112,8 +121,12 @@ function addPlayer(entity, team) {
 		else //you're telling them about themselves, so...
 			client.send('newEntity', baseComponentList.concat([
 				{
+					name: "localPlayer",
+					value: true
+				},
+				{
 					name: "cameraFocus",
-					value: "true"
+					value: true
 				}
 			]));
 	});

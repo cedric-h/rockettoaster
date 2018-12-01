@@ -4,7 +4,6 @@ global.ecs = new ecslib.EntityComponentSystem();
 global.entities = new ecslib.EntityPool();
 
 //file system
-const path = require('path');
 const fs = require('fs-extra');
 
 //server and client module that loads external ECS files
@@ -23,8 +22,13 @@ process.on('unhandledRejection', err => {
 let directoriesToGet = [
 	'./ecs/sys',
 	'./ecs/com',
-	'./src/ecs/sys',
-	'./src/ecs/com'
+	//these are files in the client ECS folders
+	//that are designed to work with the server as well
+	//as the client; the s stands for server.
+	//the client also has normal /com and /sys directories.
+	//those are for the client only.
+	'./src/ecs/ssys',
+	'./src/ecs/scom'
 ];
 
 //ECS loading
@@ -39,45 +43,16 @@ Promise.all(directoriesToGet.map(x => fs.readdir(x))).then((folders) => {
 	folders.forEach((folder, folderIndex) => {
 		folder.forEach((fileName, fileIndex) => {
 			//use a try/catch to handle the module if it's not server compatible.
-			let file = fs.readFileSync(
-				directoriesToGet[folderIndex] + '/' + fileName,
-				"utf8",
-			);
-			file.split('\n').forEach(line => {
-				console.log('hi, ' + line);
-			});
+			folder[fileIndex] = require(directoriesToGet[folderIndex] + '/' + fileName);
 
-			try {
-
-				//console.log(directoriesToGet[folderIndex] + '/' + fileName);
-				folder[fileIndex] = require(directoriesToGet[folderIndex] + '/' + fileName);
-				
-				folder[fileIndex].name = fileName.split('.')[0];
-
-				//if it's stored in the client ecs folder but meant for the server too...
-				if(folder[fileIndex].serverCompatible)
-					folders[folderIndex - 2].push(folder[fileIndex]);
-			}
-
-			catch(error) {
-				//if the cause of the error was simply that the module in question wasn't server compatible,
-				//log that and move on.
-				//but I do that in a dumb way, I should just grep the file for "serverCompatible: true"
-				if(error.name === "ReferenceError"/* && error.message === "define is not defined"*/)
-					{}//do literally nothing, this file wasn't designed for the server.
-
-				//however, if it was a legitimate error in a file was designed to run on the server,
-				//throw the error so that it pops up in the console, that way it can be debugged.
-				else
-					throw error;
-			}
+			folder[fileIndex].name = fileName.split('.')[0];
 		});
 	});
 	
 	//passing it to loadEcs
 	loadEcs(
-		folders[0], //systems
-		folders[1], //components
+		folders[0].concat(folders[2]), //systems
+		folders[1].concat(folders[3]), //components
 	).then(afterEcsLoad);
 });
 

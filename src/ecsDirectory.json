@@ -1,1 +1,1 @@
-{"sys":["addFromServer.js","controllerInput.js","physics.js","receivePhysics.js","render.js","teamUI.js"],"com":["appearance.js","body.js","cameraFocus.js","physicsConfig.js","serverId.js"]}
+{"sys":["addFromServer.js","controllerInput.js","receivePhysics.js","render.js","teamUI.js"],"com":["appearance.js","cameraFocus.js","localPlayer.js","serverId.js"],"scom":["body.js","physicsConfig.js"],"ssys":["movement.js","physics.js"]}

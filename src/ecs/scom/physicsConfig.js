@@ -1,6 +1,7 @@
 module.exports = {
-	serverCompatible: true,
 	factory: () => {
-		return {};
+		return {
+			physical: true
+		};
 	}
 };

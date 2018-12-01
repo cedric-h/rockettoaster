@@ -1,7 +1,8 @@
 module.exports = {
 	factory: () => {
 		return {
-			color: 'black'
+			color: 'black',
+			zIndex: 0
 		}
 	}
 };
