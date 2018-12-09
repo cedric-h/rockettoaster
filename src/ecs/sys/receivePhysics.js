@@ -65,7 +65,7 @@ module.exports = {
 			}
 
 			if(key === "angle") {
-				value = angleLerp(value, goalValue, delta);
+				value = angleLerp(value, goalValue, delta*2);
 			}
 		});
 	}

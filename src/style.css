@@ -1,5 +1,22 @@
+/* this doesn't work but I'm done trying to get it to work */
+@font-face {
+	font-family: 'Gamja Flower';
+	font-style: normal;
+	font-weight: 400;
+	src: local('Gamja Flower Regular'), local('GamjaFlower-Regular'), url(./GamjaFlower-Regular.ttf) format('truetype');
+	unicode-range: U+f9ca-fa0b, U+ff03-ff05, U+ff07, U+ff0a-ff0b, U+ff0d-ff19, U+ff1b, U+ff1d, U+ff20-ff5b, U+ff5d, U+ffe0-ffe3, U+ffe5-ffe6;
+}
+	
 body {
 	margin: 0px;
 	padding: 0px;
 	overflow: hidden;
+	font-family: 'Gamja Flower', cursive;
+	color: snow;
+}
+
+h1 {
+	font-size: 2.4em;
+	padding: 0px;
+	margin: 0px;
 }

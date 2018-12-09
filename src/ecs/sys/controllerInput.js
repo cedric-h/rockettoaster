@@ -83,6 +83,13 @@ function pollGamepads() {
 					value: [0, 0],
 					indexes: [2, 3],
 					type: "axes"
+				},
+				{
+					name: "pickUpButton",
+					value: [0],
+					indexes: [0],
+					type: "buttons",
+					emitServer: true
 				}
 			];
 			console.log('controller connected!');

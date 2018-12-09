@@ -2,7 +2,9 @@ module.exports = (entity, components) => {
 
 	//make a default component and overwrite it with the data provided.
 	components.forEach(component => {
-		entities.addComponent(entity, component.name);
+
+		if(entities.getComponent(entity, component.name) === undefined)
+			entities.addComponent(entity, component.name);
 
 		//takes default value, adds.
 		if(component.object)

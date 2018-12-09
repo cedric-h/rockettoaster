@@ -1,6 +1,11 @@
 const {vec2} = require('../../p2.min.js');
 const velocities = {};
 const emptyVec = vec2.create();
+let gameStarted = (typeof window === "undefined") ? false : true;
+
+entities.emitter.on('bodyRemove', entity => {
+	delete velocities[entity]
+});
 
 entities.emitter.on('movementAxisInput', (mA, entity) => {
 	if(typeof mA !== "undefined") {
@@ -23,6 +28,25 @@ entities.emitter.on('movementAxisInput', (mA, entity) => {
 
 module.exports = {
 	update: (entities, delta) => {
+
+		//no moving on server until we have a green and blue player.
+		if(!gameStarted) {
+			let teams = {
+				cyan: false,
+				lime: false
+			};
+
+			entities.find('team').forEach(entity => {
+				teams[entities.getComponent(entity, "team")] = true;
+			});
+
+			if(!teams.cyan || !teams.lime)
+				return;
+
+			else
+				gameStarted = true;
+		}
+		
 		Object.keys(velocities).forEach(entity => {
 			let body = entities.getComponent(entity, "body");
 			let v = velocities[entity];

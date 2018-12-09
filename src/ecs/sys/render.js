@@ -62,6 +62,10 @@ entities.emitter.on('appearanceCreate', entity => {
 	);
 });
 
+entities.emitter.on('appearanceRemove', entity => {
+	appearances.splice(appearances.indexOf(entity), 1);
+});
+
 
 module.exports = {
 	update: () => {
@@ -96,6 +100,10 @@ module.exports = {
 		appearances.forEach(entity => {
 			let body       = entities.getComponent(entity, "body");
 			let appearance = entities.getComponent(entity, "appearance");
+
+			ctx.globalAlpha = (appearance.transparency !== undefined)
+				? appearance.transparency
+				: 1;
 
 			if(body !== undefined)
 				body.shapes.forEach(shape => {

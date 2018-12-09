@@ -36,10 +36,6 @@ module.exports = (systemsFiles, componentFiles) => {
 					if(system.update) {
 
 						if(system.componentTypesAffected) {
-
-							if(system.searchName === undefined && system.componentTypesAffected.length > 0)
-								throw new Error(system.name + ": searchName is required when more than one componentTypesAffected are present.");
-
 							let searchName = system.searchName || system.componentTypesAffected[0];
 							ecs.addEach(system.update, searchName);
 						}

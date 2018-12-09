@@ -27,7 +27,7 @@
 	{
         "name": "rock",
         "rate": 3,
-        "density": 95,
+        "density": 25,
         "size": {
             "width": {
                 "min": 0.8,
@@ -44,6 +44,29 @@
             }
         ]
     },
+	{
+		"name": "flower",
+		"rate": 0.35,
+		"density": 20,
+		"size": {
+			"width": 0.3,
+			"height": 0.6
+		},
+		"components": [
+			{
+				"name": "appearance",
+				"object": {
+					"color": "colors.json"
+				}
+			},
+			{
+				"name": "item",
+				"object": {
+					"type": "weapon"
+				}
+			}
+		]
+	},
     {
         "name": "hardCloud",
         "rate": 2,

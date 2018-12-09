@@ -14,7 +14,7 @@ entities.emitter.on('clientCreate', entity => {
 				sendAlso.push({
 					name: key,
 					value: input[key]
-				}),
+				});
 				entities.emitter.emit(
 					key + "Input",
 					sendAlso,

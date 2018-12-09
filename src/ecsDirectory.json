@@ -1,1 +1,1 @@
-{"sys":["addFromServer.js","controllerInput.js","receivePhysics.js","render.js","teamUI.js"],"com":["appearance.js","cameraFocus.js","localPlayer.js","serverId.js"],"scom":["body.js","physicsConfig.js"],"ssys":["movement.js","physics.js"]}
+{"sys":["controllerInput.js","fade.js","manageServerEntities.js","receivePhysics.js","render.js","teamUI.js"],"com":["appearance.js","cameraFocus.js","fade.js","localPlayer.js","serverId.js"],"scom":["body.js","physicsConfig.js"],"ssys":["movement.js","physics.js"]}

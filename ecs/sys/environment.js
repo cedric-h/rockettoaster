@@ -3,6 +3,7 @@ const path = require('path');
 const colors = require('../../src/gamedata/constants/colors.json');
 const itemTypes = require('../../gamedata/constants/sceneItems.json');
 const addComponentsList = require('../../src/helper/addComponentsList.js');
+const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
 var map;
 
 let defaultComponents = {
@@ -11,6 +12,12 @@ let defaultComponents = {
 		"client": true,
 		"object": {
 			"color": "colors.json"
+		}
+	},
+	"item": {
+		"server": true,
+		"client": false,
+		"object": {
 		}
 	}
 };
@@ -26,11 +33,21 @@ entities.emitter.on('loaded', () => {
 
 		//add components where special behavior is required
 		let physicsConfig = entities.getComponent(entity, "physicsConfig");
+
+		//configure physics config
 		Object.assign(physicsConfig, item.physicsConfig);
+		physicsConfig.shapeConfig.collisionGroup = collisionGroups.terrain;
+
 		entities.emitter.emit('bodyFromBox', entity);
 
 		//add generic components that we want here on the server,
 		//which may or may not be ones that are also on the client.
+		type.components = type.components
+			.map(c => defaultComponents[c.name]
+				? Object.assign(JSON.parse(JSON.stringify(defaultComponents[c.name])), c)
+				: c
+			);
+
 		addComponentsList(entity, type.components.filter(c => c.server));
 
 		//add the generic components that we want on the client.
@@ -38,10 +55,6 @@ entities.emitter.on('loaded', () => {
 		let clientSideComponents = entities.getComponent(entity, "clientSideComponents");
 		clientSideComponents.push(
 			...type.components
-			.map(c => defaultComponents[c.name]
-				? Object.assign(JSON.parse(JSON.stringify(defaultComponents[c.name])), c)
-				: c
-			)
 			.filter(c => 
 				c.client
 			)
@@ -59,6 +72,10 @@ entities.emitter.on('loaded', () => {
 
 function makeMap() {
 	const mapGenConfig = require('../../src/gamedata/constants/mapGenConfig.json');
+	//items are spawned on a per chunk basis.
+	let chunkSize = mapGenConfig.chunkSize;
+	//map Hectameters.
+	let mapHm = mapGenConfig.size/chunkSize;
 
 	//takes three possible inputs:
 	//min is the only value. If this is the case, min is returned.
@@ -81,48 +98,56 @@ function makeMap() {
 		return min + Math.random()*(max - min);
 	}
 
+	function makeItem(type, i) {
+		let item = {
+			type: type.name,
+			physicsConfig: {
+				shapeConfig: {
+					width: grabValue(type.size.width),
+					height: grabValue(type.size.height),
+				},
+				//can't compute bodyConfig here because 
+				//you need to know the shape values.
+			}
+		};
+
+		item.physicsConfig.physical = (typeof type.physical === "undefined")
+			? true
+			: type.physical;
+
+		//compute item.physicsConfig
+		let sC = item.physicsConfig.shapeConfig;
+		item.physicsConfig.bodyConfig = {
+			mass: sC.width * sC.height * type.density,
+			position: [
+				//randomly interspersed through the chunk
+				(Math.random() + i) * chunkSize,
+				//resting on the ground
+				//the yOffset paremeter allows you to have some things
+				//stick over or in the ground a bit.
+				sC.height/2 + (grabValue(type.yOffset) || 0)
+			]
+		};
+
+		return item;
+	}
+
 	map = [];
 
 	itemTypes.forEach(type => {
-		//items are spawned per 100 units.
-		//map Hectameters.
-		let chunkSize = mapGenConfig.chunkSize;
-		let mapHm = mapGenConfig.size/chunkSize;
 		for(let i = mapHm/-2; i < mapHm/2; i++) {
 			//the rate variable in the JSON is how many per chunk
-			for(let j = 0; j < type.rate; j++) {
 
-				let item = {
-					type: type.name,
-					physicsConfig: {
-						shapeConfig: {
-							width: grabValue(type.size.width),
-							height: grabValue(type.size.height),
-						},
-						//can't compute bodyConfig here because 
-						//you need to know the shape values.
-					}
-				};
+			//deal with the whole number part of the rate
+			let howManyItems = grabValue(type.rate);
+			if(howManyItems >= 1)
+				for(; 1 <= howManyItems; howManyItems--)
+					map.push(makeItem(type, i));
 
-				item.physicsConfig.physical = (typeof type.physical === "undefined")
-					? true
-					: type.physical;
-
-				//compute item.physicsConfig
-				let sC = item.physicsConfig.shapeConfig;
-				item.physicsConfig.bodyConfig = {
-					mass: sC.width * sC.height * type.density,
-					position: [
-						//randomly interspersed through the chunk
-						(Math.random() + i) * chunkSize,
-						//resting on the ground
-						//the yOffset paremeter allows you to have some things
-						//stick over or in the ground a bit.
-						sC.height/2 + (grabValue(type.yOffset) || 0)
-					]
-				};
-
-				map.push(item);
+			if(Math.random() < howManyItems) {
+				console.log('random was lower, spawning chance item!');
+				console.log('type name was: ' + type.name);
+				map.push(makeItem(type, i));
 			}
 		}
 	});
