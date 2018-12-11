@@ -5,5 +5,8 @@
 module.exports = {
 	factory: () => {
 		return [];
+	},
+	reset: cSC => {
+		cSC.splice(0, cSC.length);
 	}
 }

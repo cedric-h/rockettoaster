@@ -3,6 +3,9 @@ module.exports = {
 		return {
 		}
 	},
-	reset: inventory => {
+	reset: item => {
+		Object.keys(item).forEach(key => {
+			delete item[key];
+		});
 	}
 }

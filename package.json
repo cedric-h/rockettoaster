@@ -6,7 +6,9 @@
 		"test": "nodemon",
 		"build": "webpack --config webpack.prod.js",
 		"start": "start node ecsDirectoryUpdater.js & start nodemon index.js & webpack-dev-server --open --config webpack.dev.js",
-		"startClient": "webpack-dev-server --config webpack.dev.js"
+		"startClient": "webpack-dev-server --config webpack.dev.js",
+		"startHttpServer": "node index.js & npm run build & http-server ./dist"
+
 	},
 	"repository": {
 		"type": "git",

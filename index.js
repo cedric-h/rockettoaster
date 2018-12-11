@@ -68,5 +68,5 @@ function afterEcsLoad() {
 		ecs.run(entities, (present() - lastTime) / 1000);
 
 		lastTime = present();
-	}, 1000/60);
+	}, 1000/30);
 }

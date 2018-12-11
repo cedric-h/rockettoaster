@@ -4,5 +4,10 @@ module.exports = {
 			color: 'black',
 			zIndex: 0
 		}
+	},
+	reset: appearance => {
+		appearance.transparency = 1;
+		appearance.type = undefined;
+		appearance.zIndex = 0;
 	}
 };

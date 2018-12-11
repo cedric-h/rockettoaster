@@ -4,10 +4,13 @@
 
 	"rock": "slategray",
 	"tree": "#664b49",
+	"bush": "#548065",
+	"thickBush": "#496f5d",
 
 	"limeTeam": "#9de0ad",
 	"cyanTeam": "#45ada8",
 
-	"laser": "#b84f4f",
-	"flower": "#b84f4f"
+	"redFlower": "#b84f4f",
+	"purpleFlower": "purple",
+	"blueFlower": "#8ecdd9"
 }

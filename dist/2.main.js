@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[2],[,function(o,p){o.exports={serverCompatible:!0,factory:()=>({})}}]]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[2],{2:function(o,n){o.exports={factory:()=>!0}}}]);

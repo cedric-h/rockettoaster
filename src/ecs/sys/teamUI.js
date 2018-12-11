@@ -1,6 +1,9 @@
 //creates the UI that lets you pick a team, and then sends a message to the server when you pick one.
 //also increments the team member counter.
+
 entities.emitter.on('loaded', () => {
+
+
 	["lime", "cyan"].forEach((color, index) => {
 		let direction = ["left", "right"][index];
 		let teamDiv = document.createElement("div");
@@ -40,7 +43,7 @@ entities.emitter.on('loaded', () => {
 			let h1  = document.createElement("h1");
 			h1.appendChild(document.createTextNode(ourNumberOfPlayers));
 			div.appendChild(h1);
-			div.appendChild(document.createTextNode(color + " players"));
+			div.appendChild(document.createTextNode(color + " points"));
 
 			div.style["text-align"] = "center";
 			div.style["font-size"] = "0.8em";
@@ -53,10 +56,35 @@ entities.emitter.on('loaded', () => {
 
 			document.body.prepend(div);
 
-			server.on('changeTeamCounter', data => {
+			server.on("teamWon", team => {
+				if(team === color) {
+					div.innerHTML = "";
+					div.appendChild(h1);
+
+					h1.innerText = "WINNER";
+					div.appendChild(document.createTextNode(
+						color + " won!"
+					));
+
+					setTimeout(() => {
+						div.innerHTML = "";
+						div.appendChild(h1);
+
+						h1.innerText = 0;
+						div.appendChild(document.createTextNode(
+							color + " team"
+						));
+					}, 10 * 1000);
+				}
+
+				else
+					h1.innerText = 0;
+			});
+
+			server.on('changeTeamPoints', data => {
 				console.log('here');
-				if(data.team === color)
-					h1.innerText = parseInt(h1.innerText) + data.change;
+				if(data.team === color && h1.innerText !== "WIN")
+					h1.innerText = data.change;
 			});
 		});
 	});

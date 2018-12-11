@@ -18,7 +18,6 @@ entities.emitter.on('loaded', () => {
 	
 	server.on('newEntity', components => {
 		let entity = entities.create();
-
 		addComponents(entity, components);
 	});
 

@@ -58,7 +58,7 @@ entities.emitter.on('appearanceCreate', entity => {
 				entities.getComponent(a, "appearance").zIndex - entities.getComponent(b, "appearance").zIndex
 			);
 		},
-		50
+		15
 	);
 });
 
@@ -89,12 +89,12 @@ module.exports = {
 
 		//get the camera situated.
 		ctx.translate(canvas.width/2, canvas.height/2);
-		ctx.scale(50, -50);
+		ctx.scale(35, -35);
 
 		ctx.translate(camera.position[0], camera.position[1]);
 		
 		ctx.fillStyle = colors.ground;
-		ctx.fillRect(-100, 0, 200, -10);
+		ctx.fillRect(-100, 0, 200, -60);
 
 		//great, now render each and every rectangle.
 		appearances.forEach(entity => {

@@ -28,25 +28,6 @@ entities.emitter.on('movementAxisInput', (mA, entity) => {
 
 module.exports = {
 	update: (entities, delta) => {
-
-		//no moving on server until we have a green and blue player.
-		if(!gameStarted) {
-			let teams = {
-				cyan: false,
-				lime: false
-			};
-
-			entities.find('team').forEach(entity => {
-				teams[entities.getComponent(entity, "team")] = true;
-			});
-
-			if(!teams.cyan || !teams.lime)
-				return;
-
-			else
-				gameStarted = true;
-		}
-		
 		Object.keys(velocities).forEach(entity => {
 			let body = entities.getComponent(entity, "body");
 			let v = velocities[entity];

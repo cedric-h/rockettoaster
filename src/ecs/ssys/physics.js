@@ -1,5 +1,8 @@
 const broadcast = (typeof window === "undefined") ? require('../../../helper/broadcast.js') : undefined;
 const p2 = require('./../../p2.min');
+const frameEstimate = typeof window === "undefined"
+	? 1/30
+	: 1/60;
 
 let bodiesToRemove = [];
 
@@ -71,7 +74,9 @@ entities.emitter.on('bodyFromBox', entity => {
 	if(physicsConfig.shapeConfig.collisionMask === undefined)
 		physicsConfig.shapeConfig.collisionMask = -1;
 
-	physicsConfig.shape = new p2.Box(physicsConfig.shapeConfig);
+	physicsConfig.shape = new p2.Box(
+		JSON.parse(JSON.stringify(physicsConfig.shapeConfig))
+	);
 	physicsConfig.body  = new p2.Body(physicsConfig.bodyConfig);
 
 	entities.addComponent(entity, "body");
@@ -93,7 +98,7 @@ entities.emitter.on('physicsConfigAddedFromServer', entity => {
 
 module.exports = {
 	update: (entities, delta) => {
-		world.step(1/60, delta, 15);
+		world.step(frameEstimate, delta, 10);
 
 		bodiesToRemove = bodiesToRemove.filter(body => {
 			world.removeBody(body);

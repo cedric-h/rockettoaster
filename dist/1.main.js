@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[1],[function(o,c){o.exports={factory:()=>({color:"black"})}}]]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[1],[,function(n,o){n.exports={factory:()=>({color:"black",zIndex:0}),reset:n=>{n.transparency=1,n.type=void 0,n.zIndex=0}}}]]);

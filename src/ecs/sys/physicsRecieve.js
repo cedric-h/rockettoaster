@@ -6,9 +6,19 @@ function angleLerp(a, b, t) {
 }
 
 let serverPositions = {};
+let teleport = {};
+let lastUpdated = Date.now();
 
 entities.emitter.on('loaded', () => {
 
+	server.on('teleport', data => {
+		let entity = entities.find('serverId').filter(entity =>
+			entities.getComponent(entity, "serverId") === data.serverId
+		)[0];
+		let body = entities.getComponent(entity, "body");
+		body.position = data.to;
+	});
+	
 	entities.emitter.on('bodyCreate', entity => {
 		serverPositions[entity] = {};
 	});
@@ -16,6 +26,7 @@ entities.emitter.on('loaded', () => {
 	//physics comes with a megapacket which contains
 	//orientation/velocity data for all physics objects.
 	server.on('physics', megapacket => {
+		lastUpdated = Date.now();
 
 		//loop over all entities with serverIds, and update their info if there is any.
 		entities.find('serverId').forEach(entity => {
@@ -54,6 +65,7 @@ module.exports = {
 		Object.keys(goalBody).forEach(key => {
 			let goalValue = goalBody[key];
 			let value = body[key];
+			
 
 			if(key === "position") {
 				p2.vec2.lerp(
@@ -65,7 +77,11 @@ module.exports = {
 			}
 
 			if(key === "angle") {
-				value = angleLerp(value, goalValue, delta*2);
+				value = angleLerp(
+					value,
+					goalValue,
+					(Date.now() - lastUpdated)/(1000/10)
+				);
 			}
 		});
 	}

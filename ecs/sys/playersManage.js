@@ -1,5 +1,6 @@
 const WebSocket = require('ws');
 const p2 = require('../../src/p2.min');
+const vec2 = p2.vec2;
 
 const broadcast = require('../../helper/broadcast.js');
 
@@ -8,16 +9,57 @@ const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
 const colors = require('../../src/gamedata/constants/colors.json');
 const mapGenConfig = require('../../src/gamedata/constants/mapGenConfig.json');
 
-global.teams = {
-	cyan: {
-		startPos: [ mapGenConfig.size/2 - 3, 1],
-	},
-	lime: {
-		startPos: [-mapGenConfig.size/2 + 3, 1],
-	}
-};
-
 var wss;
+
+const positionAtStart = (function() {
+
+	const startPositions = {
+		cyan: [ mapGenConfig.size/2, 1],
+		lime: [-mapGenConfig.size/2, 1]
+	};
+
+	return (entity) => {
+		let team = entities.getComponent(entity, "team");
+		let body = entities.getComponent(entity, "body") || {position: vec2.create()};
+		vec2.copy(body.position, startPositions[team]);
+		body.position[0] += Math.sign(startPositions[team][0]) * -2 * (entities.find('team').indexOf(entity) || 1);
+		return body.position;
+	}
+})();
+
+
+entities.emitter.on('shareNewEntity', newEntity => {
+	broadcast('newEntity', packetFromEntity(newEntity));
+});
+
+entities.emitter.on('playerKilled', entity => {
+	broadcast('teleport', {
+		serverId: entity, 
+		to: positionAtStart(entity)
+	});
+});
+
+//after a game has been one, we one to reset the map.
+//when that happens, we want to tell the players what the new map looks like
+//and teleport all players to their team spawns.
+entities.emitter.on('resetDone', () => {
+	//resend all of the things that last only one game
+	entities.find('body').forEach(entity => { //all physics bodies,
+		//the player's physicsConfig hasn't been turned into one of these yet.
+
+		if(typeof entities.getComponent(entity, "removeOnGameReset") !== "undefined")
+			broadcast('newEntity', packetFromEntity(entity));
+	});
+
+	entities.find('client').forEach(entity => {
+		if(typeof entities.getComponent(entity, "team") !== "undefined")
+			broadcast('teleport', {
+				serverId: entity, 
+				to: positionAtStart(entity)
+			});
+	});
+});
+
 
 entities.emitter.on('loaded', () => {
 
@@ -100,9 +142,15 @@ function addPlayer(entity, team) {
 	//record team
 	entities.addComponent(entity, "team");
 	entities.setComponent(entity, "team", team);
+	
+	//record team
+	entities.addComponent(entity, "health");
+	entities.setComponent(entity, "health", 5);
 
 	//add inventory
 	entities.addComponent(entity, "inventory");
+	let inventory = entities.getComponent(entity, "inventory");
+	inventory.size = 1;
 
 	//add physics
 	//add a physicsConfig to configure and then turn into a body component.
@@ -116,13 +164,7 @@ function addPlayer(entity, team) {
 	};
 	physicsConfig.bodyConfig = {
 		mass: 5,
-		position: [
-			//space them out based on how many people are in the game
-			//you could base it on how many specific people on one team are in,
-			//but meh, some gaps don't hurt anyone.
-			teams[team].startPos[0] + 3 * entities.find('team').length,
-			teams[team].startPos[1]
-		]
+		position: positionAtStart(entity)
 	};
 
 	entities.addComponent(entity, "clientSideComponents");
@@ -138,7 +180,7 @@ function addPlayer(entity, team) {
 
 
 	//now that we have all of the components we need, let's tell
-	//the clients about this brand new thing.
+	//the clients about this brand new player.
 	//the client automatically adds a body if it sees a body config,
 	//because we can't just send over an entire body; they're recursive,
 	//so they can't be serialized, and they're just big, so it's easier

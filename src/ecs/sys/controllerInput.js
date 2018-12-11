@@ -76,18 +76,25 @@ function pollGamepads() {
 					indexes: [7],
 					type: "buttons",
 					emitServer: true,
-					sendAlso: "aimingAxis"
 				},
 				{
 					name: "aimingAxis",
 					value: [0, 0],
 					indexes: [2, 3],
-					type: "axes"
+					type: "axes",
+					emitServer: true
 				},
 				{
 					name: "pickUpButton",
 					value: [0],
 					indexes: [0],
+					type: "buttons",
+					emitServer: true
+				},
+				{
+					name: "dropButton",
+					value: [0],
+					indexes: [2],
 					type: "buttons",
 					emitServer: true
 				}

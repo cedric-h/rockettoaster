@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{2:function(o,n){o.exports={factory:()=>!0}}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[3],{3:function(o,e){o.exports={factory:()=>({startTime:void 0,timeToGone:1e3,fadingOut:!0,fadeBackIn:void 0,removeEntity:void 0,removeComponent:void 0}),reset:o=>{o.startTime=void 0,o.timeToGone=1e3,o.fadingOut=!0}}}}]);

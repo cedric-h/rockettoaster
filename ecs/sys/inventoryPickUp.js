@@ -2,8 +2,10 @@ let {vec2} = require("../../src/p2.min.js");
 let broadcast = require('../../helper/broadcast.js');
 
 entities.emitter.on('pickUpButtonInput', (input, pickerEntity) => {
+	let inventory = entities.getComponent(pickerEntity, "inventory");
 
-	if(input[0] > 0) {
+	//if we have room for one more item and the button is being pressed not released,
+	if(inventory.items.length + 1 <= inventory.size && input[0] > 0) {
 		let body = entities.getComponent(pickerEntity, "body");
 
 		let itemEntities = entities.find('item').map(itemEntity => {
@@ -20,10 +22,19 @@ entities.emitter.on('pickUpButtonInput', (input, pickerEntity) => {
 			let {distance, entity} = itemEntities[0];
 
 			if(distance < 2) {
+				//cloning because item is about to be destroyed then reused
 				let item = entities.getComponent(entity, "item");
+				let physConf = entities.getComponent(entity, "physicsConfig");
+				item.asPhysical = {
+					shapeConfig: JSON.parse(JSON.stringify(physConf.shapeConfig)),
+					bodyConfig: JSON.parse(JSON.stringify(physConf.bodyConfig)),
+					physical: physConf.physical
+				};
+				item.clientSideComponents = JSON.parse(JSON.stringify(
+					entities.getComponent(entity, "clientSideComponents")
+				));
 
 				//cloning item and putting it into inventory
-				//clone because item is about to be destroyed then reused
 				entities.emitter.emit(
 					'inventoryAdd', 
 					pickerEntity,
