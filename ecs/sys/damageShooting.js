@@ -174,8 +174,6 @@ entities.emitter.on('aimingAxisInput', (input, shooterEntity) => {
 	let inf = shooterInfos[shooterEntity];
 
 	inf.aim = input;
-	//reflect Y so it is in the same quadrant as us
-	inf.aim[1] *= -1;
 });
 module.exports = {
 };

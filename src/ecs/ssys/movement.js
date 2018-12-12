@@ -9,10 +9,6 @@ entities.emitter.on('bodyRemove', entity => {
 
 entities.emitter.on('movementAxisInput', (mA, entity) => {
 	if(typeof mA !== "undefined") {
-		//flip the Y axis so that the controller input
-		//aligns with our cartesian plane
-		mA[1] = mA[1] * -1;
-
 		//this prevents cheating by clipping the size of the vector.
 		if(vec2.len(mA) > 1)
 			vec2.normalize(mA, mA);

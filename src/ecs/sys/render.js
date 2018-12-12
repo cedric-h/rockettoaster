@@ -1,5 +1,6 @@
 const p2 = require('../../p2.min.js');
 const colors = require('../../gamedata/constants/colors.json');
+const worldConfig = require('../../gamedata/constants/worldConfig.json');
 var appearances = [];
 
 var canvas, ctx;
@@ -31,6 +32,7 @@ function drawRectangle(body, shape) {
 entities.emitter.on('loaded', () => {
 	//grab our canvas and ctx variables.
 	canvas = document.createElement("canvas");
+	canvas.id = "canvas";
 	ctx = canvas.getContext('2d');
 
 	//put that canvas on the screen.
@@ -89,12 +91,12 @@ module.exports = {
 
 		//get the camera situated.
 		ctx.translate(canvas.width/2, canvas.height/2);
-		ctx.scale(35, -35);
+		ctx.scale(worldConfig.zoom, -worldConfig.zoom);
 
 		ctx.translate(camera.position[0], camera.position[1]);
 		
 		ctx.fillStyle = colors.ground;
-		ctx.fillRect(-100, 0, 200, -60);
+		ctx.fillRect(worldConfig.size/-2, 0, worldConfig.size, -60);
 
 		//great, now render each and every rectangle.
 		appearances.forEach(entity => {

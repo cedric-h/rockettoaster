@@ -7,15 +7,15 @@ const broadcast = require('../../helper/broadcast.js');
 const physicsConstants = require('../../gamedata/constants/physics.json');
 const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
 const colors = require('../../src/gamedata/constants/colors.json');
-const mapGenConfig = require('../../src/gamedata/constants/mapGenConfig.json');
+const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
 
 var wss;
 
 const positionAtStart = (function() {
 
 	const startPositions = {
-		cyan: [ mapGenConfig.size/2, 1],
-		lime: [-mapGenConfig.size/2, 1]
+		cyan: [ worldConfig.size/2, 1],
+		lime: [-worldConfig.size/2, 1]
 	};
 
 	return (entity) => {
@@ -89,6 +89,7 @@ entities.emitter.on('loaded', () => {
 		});
 
 		client.once("teamChosen", data => {
+			entities.emitter.emit(newPlayer + "JoinedGame");
 			addPlayer(newPlayer, data.team);
 		});
 

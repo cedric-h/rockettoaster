@@ -4,6 +4,7 @@ const colors = require('../../src/gamedata/constants/colors.json');
 const itemTypes = require('../../gamedata/constants/sceneItems.json');
 const addComponentsList = require('../../src/helper/addComponentsList.js');
 const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
+const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
 var map;
 
 const defaultComponents = {
@@ -55,13 +56,12 @@ entities.emitter.on('reset', () => {
 
 
 function makeMap() {
-	const mapGenConfig = require('../../src/gamedata/constants/mapGenConfig.json');
 	//for when you need a minimum amount of a type of item.
 	let itemCount = 0;
 	//items are spawned on a per chunk basis.
-	let chunkSize = mapGenConfig.chunkSize;
+	let chunkSize = worldConfig.chunkSize;
 	//map size in hectameters.
-	let mapHm = mapGenConfig.size/chunkSize;
+	let mapHm = worldConfig.size/chunkSize;
 	//let's clear out the map so we can fill it up again.
 	map = [];
 

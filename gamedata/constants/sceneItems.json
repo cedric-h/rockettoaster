@@ -39,7 +39,7 @@
 	},
 	{
 		"name": "pinkFlower",
-		"rate": 0.9,
+		"rate": 0.1,
 		"centerDistanceBounds": {
 		   "min": 0.81,
 		   "max": 1

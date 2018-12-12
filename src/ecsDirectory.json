@@ -1,1 +1,1 @@
-{"sys":["controllerInput.js","fade.js","physicsRecieve.js","render.js","serverEntitiesManage.js","teamUI.js"],"com":["appearance.js","cameraFocus.js","fade.js","localPlayer.js","serverId.js"],"scom":["body.js","physicsConfig.js"],"ssys":["movement.js","physics.js"]}
+{"sys":["controllerInput.js","fade.js","keyboardMouseInput.js","physicsRecieve.js","render.js","serverEntitiesManage.js","teamUI.js"],"com":["appearance.js","cameraFocus.js","fade.js","localPlayer.js","serverId.js"],"scom":["body.js","physicsConfig.js"],"ssys":["movement.js","physics.js"]}

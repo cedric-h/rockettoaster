@@ -134,6 +134,10 @@ module.exports = {
 								: value
 							);
 
+						//for some reason Y values are flipped, let's fix that
+						if(watchedInput.type === "axes")
+							inputValue[1] *= -1;
+
 						if(!arraysEqual(inputValue, watchedInput.value)) {
 							//record new value
 							watchedInput.value = inputValue;
