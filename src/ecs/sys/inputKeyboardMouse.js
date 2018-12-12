@@ -17,32 +17,61 @@ function getPhysicsCoords(event) {
 };
 
 
-//I hope there is a hell just so I can go there for writing this code
-//in my defense I was fairly tired writing it
-const updateMovementAxis = event => {
+function sendAim(event) {
+	let focalPoint = entities.getComponent(
+		entities.find("cameraFocus")[0],
+		"body"
+	).position;
+	let physicsCoords = getPhysicsCoords(event);
+	vec2.sub(
+		physicsCoords,
+		physicsCoords,
+		focalPoint
+	);
+
 	server.emit('inputUpdate', {
-		"movementAxis": movementAxis.values = movementAxis.values.map((value, index) => {
-			let direction = movementAxis.axes[index][event.key];
-			return (direction === undefined) 
-				? value
-				: (event.type === "keydown")
-					? Math.min(1, Math.max(-1, value + direction))
-					: 0;
-		})
+		"aimingAxis": physicsCoords
 	});
+}
+
+
+const updateMovementAxis = event => {
+	let key = movementAxis.keys[event.key];
+	
+	if(key !== undefined) {
+		movementAxis.values[key.direction] = (event.type === "keydown") ? key.coefficient : 0;
+
+		server.emit('inputUpdate',{
+			"movementAxis": movementAxis.values
+		});
+
+		entities.emitter.emit(
+			'movementAxisInput',
+			movementAxis.values.slice(0),//clone so it doesn't effect the copy we ship to the server.
+			entities.find('cameraFocus')[0]
+		);
+	}
 };
 const movementAxis = {
 	"values": [0, 0],
-	"axes": [
-		{
-			"a": -1,
-			"d":  1
+	"keys": {
+		"a":{
+			"coefficient": -1,
+			"direction": 0
 		},
-		{
-			"s": -1,
-			"w":  1
+		"d": {
+			"coefficient": 1,
+			"direction": 0
+		},
+		"s": {
+			"coefficient": -1,
+			"direction": 1
+		},
+		"w": {
+			"coefficient": 1,
+			"direction": 1
 		}
-	],
+	},
 };
 window.addEventListener("keydown", updateMovementAxis);
 window.addEventListener("keyup", updateMovementAxis);
@@ -55,22 +84,8 @@ const handlePress = (event, inputsList, pressType, downType) => {
 	if(input !== undefined) { 
 		serverPacket[input.name] = [event.type === downType ? 1 : 0];
 
-		if(input.sendAlsoMousePos) {
-			let focalPoint = entities.getComponent(
-				entities.find("cameraFocus")[0],
-				"body"
-			).position;
-			let physicsCoords = getPhysicsCoords(event);
-			vec2.sub(
-				physicsCoords,
-				physicsCoords,
-				focalPoint
-			);
-
-			server.emit('inputUpdate', {
-				"aimingAxis": physicsCoords
-			});
-		}
+		if(input.sendAlsoMousePos)
+			sendAim(event);
 
 		server.emit('inputUpdate', serverPacket);
 	}
@@ -88,6 +103,7 @@ entities.emitter.on('teamChosen', () => {
 	], "button", "mousedown");
 	window.addEventListener("mousedown", handleMousePress);
 	window.addEventListener("mouseup", handleMousePress);
+	window.addEventListener("mousemove", sendAim);
 
 
 	const handleKeyPress = event => handlePress(event, {

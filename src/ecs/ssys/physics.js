@@ -1,5 +1,7 @@
 const broadcast = (typeof window === "undefined") ? require('../../../helper/broadcast.js') : undefined;
+const worldConfig = require('../../gamedata/constants/worldConfig.json');
 const p2 = require('./../../p2.min');
+
 const frameEstimate = typeof window === "undefined"
 	? 1/30
 	: 1/60;
@@ -34,7 +36,7 @@ world.addBody(ground);
 [-1, 1].forEach(direction => {
 	let wall = new p2.Body({
 		angle: Math.PI * (direction == true ? 0.5 : 1.5),
-		position: [100*direction, 0],
+		position: [worldConfig.size/2*direction, 0],
 		id: (direction > 0 ? "right" : "left") + "Wall"
 	});
 	wall.addShape(new p2.Plane({
