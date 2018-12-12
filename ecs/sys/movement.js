@@ -1,4 +1,4 @@
-const {vec2} = require('../../p2.min.js');
+const {vec2} = require('../../src/p2.min.js');
 const velocities = {};
 const emptyVec = vec2.create();
 let gameStarted = (typeof window === "undefined") ? false : true;

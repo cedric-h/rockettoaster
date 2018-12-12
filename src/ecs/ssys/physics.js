@@ -2,9 +2,9 @@ const broadcast = (typeof window === "undefined") ? require('../../../helper/bro
 const worldConfig = require('../../gamedata/constants/worldConfig.json');
 const p2 = require('./../../p2.min');
 
-const frameEstimate = typeof window === "undefined"
-	? 1/30
-	: 1/60;
+const frameEstimate = 1/60;//typeof window === "undefined"
+	//? 1/30
+	//: 1/60;
 
 let bodiesToRemove = [];
 

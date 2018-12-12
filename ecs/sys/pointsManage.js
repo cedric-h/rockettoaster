@@ -19,8 +19,7 @@ entities.emitter.on('resetDone', () => {
 	points.lime = 0;
 });
 
-//someone from a team died or left, let's up the other team's point counter.
-entities.emitter.on('teamRemove', addPoint);
+//someone from a team died, let's up the other team's point counter.
 entities.emitter.on('playerKilled', addPoint);
 
 function addPoint(entity) {

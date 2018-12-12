@@ -1,5 +1,13 @@
 const broadcast = require('../../helper/broadcast.js');
 
+function grabDamage(weapon) {
+	if(weapon.damage)
+		return weapon.damage;
+
+	else
+		return weapon.damageMin + Math.random()*(weapon.damageMax - weapon.damageMin);
+}
+
 entities.emitter.on('playerKilled', entity => {
 	entities.setComponent(entity, "health", 5);
 });
@@ -16,7 +24,7 @@ entities.emitter.on('weaponDamage', (victimE, shooterE) => {
 		entities.setComponent(
 			victimE,
 			"health",
-			health - (inventory.weapon.damage || 1)
+			health - (grabDamage(inventory.weapon) || 1)
 		);
 
 		if(entities.getComponent(victimE, "health") <= 0) {
