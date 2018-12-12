@@ -64,7 +64,7 @@ entities.emitter.on('resetDone', () => {
 entities.emitter.on('loaded', () => {
 
 	wss = new WebSocket.Server({
-		port: 8080
+		port: 3001
 	});
 
 	wss.on('connection', ws => {

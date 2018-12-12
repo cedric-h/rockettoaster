@@ -72,7 +72,7 @@ new Promise(resolve => {
 	console.log('whaddyaknow!');
 	console.log(ecsModules);
 	//let's get connected to the server.
-	window.server = wsWrapper(new WebSocket("ws://" + window.location.hostname + ":8080"));
+	window.server = wsWrapper(new WebSocket("ws://" + window.location.hostname + ":3001"));
 
 	loadEcs(
 		ecsModules.sys,
