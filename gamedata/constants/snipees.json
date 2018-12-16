@@ -1,98 +1,35 @@
 [
 	{
-		"name": "redBlastFlower",
-		"tier": "starter",
-		"weaponType": "blast",
+		"name": "redFlower",
+		"rate": 1,
+		"minimumPerSide": 3,
+		"centerDistanceBounds": {
+		   "min": 0.81,
+		   "max": 1
+		},
+		"density": 50,
+		"size": {
+			"width": 0.35,
+			"height": 0.35
+		},
 		"components": [
 			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
+				"name": "appearance",
 				"object": {
-					"type": "weapon",
-					"damage": 0.9,
-					"coolDown": 1300,
-					"range": 5,
-					"pushForce": 500,
-					"knockBack": 250,
-					"laserColor": "#b84f4f",
-					"laserThickness": 0.25,
-					"laserFadeTime": 2000,
-					"beams": 4,
-					"spread": 0.08725
+					"color": "colors.json"
 				}
-			}
-		]
-	},
-	{
-		"name": "redFastFlower",
-		"tier": "starter",
-		"weaponType": "fast",
-		"components": [
-			{
-				"name": "appearance"
 			},
 			{
 				"name": "item",
 				"object": {
 					"type": "weapon",
-					"damage": 0.8,
-					"coolDown": 125,
-					"range": 7,
-					"pushForce": 115,
-					"knockBack": 90,
+					"damage": 2,
+					"coolDown": 500,
+					"range": 15,
+					"pushForce": 2000,
+					"knockBack": 2000,
 					"laserColor": "#b84f4f",
-					"laserThickness": 0.185,
-					"laserFadeTime": 700
-				}
-			}
-		]
-	},
-	{
-		"name": "redOrbFlower",
-		"tier": "starter",
-		"weaponType": "orb",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damage": 1,
-					"coolDown": 275,
-					"range": 15.5,
-					"pushForce": 750,
-					"knockBack": 150,
-					"laserColor": "#b84f4f",
-					"laserThickness": 0.175,
-					"laserFadeTime": 600
-				}
-			}
-		]
-	},
-	{
-		"name": "redCannonFlower",
-		"tier": "starter",
-		"weaponType": "cannon",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damageMax": 2.5,
-					"damageMin": 1.25,
-					"coolDown": 2750,
-					"range": 20,
-					"pushForce": 1000,
-					"knockBack": 1000,
-					"laserColor": "#b84f4f",
-					"laserThickness": 0.35,
+					"laserThickness": 0.375,
 					"laserFadeTime": 3000
 				}
 			}
@@ -100,7 +37,7 @@
 	},
 	{
 		"name": "pinkFlower",
-		"rate": 0.1,
+		"rate": 1,
 		"centerDistanceBounds": {
 		   "min": 0.81,
 		   "max": 1
@@ -167,102 +104,76 @@
         ]
     },
 	{
-		"name": "blueFastFlower",
-		"tier": "cloud",
-		"weaponType": "fast",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damage": 0.55,
-					"coolDown": 125,
-					"range": 8.5,
-					"pushForce": 1200,
-					"knockBack": 65,
-					"laserColor": "#8ecdd9",
-					"laserThickness": 0.275,
-					"laserFadeTime": 650,
-					"beams": 2,
-					"spread": 0.0698
-				}
-			}
-		]
-	},
-	{
-		"name": "blueBlastFlower",
-		"tier": "cloud",
-		"weaponType": "blast",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damage": 2,
-					"coolDown": 900,
-					"range": 5,
-					"pushForce": 7500,
-					"knockBack": 250,
-					"laserColor": "#8ecdd9",
-					"laserThickness": 0.3,
-					"laserFadeTime": 2250,
-					"beams": 3,
-					"spread": 0.375
-				}
-			}
-		]
-	},
-	{
-		"name": "blueOrbFlower",
-		"tier": "cloud",
-		"weaponType": "orb",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damage": 1.25,
-					"coolDown": 250,
-					"range": 25,
-					"pushForce": 1000,
-					"knockBack": 250,
-					"laserColor": "#8ecdd9",
-					"laserThickness": 0.225,
-					"laserFadeTime": 750
-				}
-			}
-		]
-	},
-	{
 		"name": "blueCannonFlower",
-		"tier": "cloud",
-		"weaponType": "cannon",
+		"rate": 0.3,
+		"minimumPerSide": 3,
+		"centerDistanceBounds": {
+			"min": 0.21,
+			"max": 1
+		},
+		"yOffset": 25,
+		"density": 50,
+		"size": {
+			"width": 0.8,
+			"height": 0.35
+		},
 		"components": [
 			{
-				"name": "appearance"
+				"name": "appearance",
+				"object": {
+					"color": "colors.json"
+				}
 			},
 			{
 				"name": "item",
 				"object": {
 					"type": "weapon",
 					"damageMax": 6,
-					"damageMin": 3,
-					"coolDown": 2250,
-					"range": 30,
-					"pushForce": 1750,
-					"knockBack": 1750,
+					"damageMin": 3.42,
+					"coolDown": 2500,
+					"range": 40,
+					"pushForce": 2000,
+					"knockBack": 2000,
 					"laserColor": "#8ecdd9",
-					"laserThickness": 0.365,
+					"laserThickness": 0.375,
 					"laserFadeTime": 3000
+				}
+			}
+		]
+	},
+	{
+		"name": "blueFlower",
+		"rate": 1,
+		"minimumPerSide": 3,
+		"centerDistanceBounds": {
+			"min": 0.21,
+			"max": 1
+		},
+		"yOffset": 25,
+		"density": 50,
+		"size": {
+			"width": 0.8,
+			"height": 0.15
+		},
+		"components": [
+			{
+				"name": "appearance",
+				"object": {
+					"color": "colors.json"
+				}
+			},
+			{
+				"name": "item",
+				"object": {
+					"type": "weapon",
+					"damage": 1.25,
+					"coolDown": 350,
+					"range": 18,
+					"pushForce": 150,
+					"knockBack": 300,
+					"laserColor": "#8ecdd9",
+					"laserThickness": 0.3,
+					"laserFadeTime": 500
 				}
 			}
 		]
@@ -442,100 +353,76 @@
         ]
     },
 	{
-		"name": "purpleFastFlower",
-		"tier": "purple",
-		"weaponType": "fast",
+		"name": "purpleOrb",
+		"rate": 1,
+		"centerDistanceBounds": {
+			"min": 0,
+			"max": 0.2
+		},
+		"yOffset": 15,
+		"density": 50,
+		"size": {
+			"width": 0.35,
+			"height": 0.35
+		},
 		"components": [
 			{
-				"name": "appearance"
+				"name": "appearance",
+				"object": {
+					"color": "purple"
+				}
 			},
 			{
 				"name": "item",
 				"object": {
 					"type": "weapon",
-					"damage": 1.25,
-					"coolDown": 100,
-					"range": 8.5,
-					"pushForce": 1200,
-					"knockBack": 65,
+					"damage": 3.5,
+					"coolDown": 1150,
+					"range": 20,
+					"pushForce": 7500,
+					"knockBack": 1000,
 					"laserColor": "#794fb8",
-					"laserThickness": 0.275,
-					"laserFadeTime": 650
+					"laserThickness": 0.2,
+					"laserFadeTime": 750,
+					"beams": 1
 				}
 			}
 		]
 	},
 	{
 		"name": "purpleBlastFlower",
-		"weaponType": "blast",
-		"tier": "purple",
+		"rate": 0.35,
+		"centerDistanceBounds": {
+			"min": 0,
+			"max": 0.2
+		},
+		"yOffset": 15,
+		"density": 50,
+		"size": {
+			"width": 0.8,
+			"height": 0.35
+		},
 		"components": [
 			{
-				"name": "appearance"
+				"name": "appearance",
+				"object": {
+					"color": "purple"
+				}
 			},
 			{
 				"name": "item",
 				"object": {
 					"type": "weapon",
-					"damage": 1,
-					"coolDown": 800,
-					"range": 8,
+					"damage": 2,
+					"coolDown": 900,
+					"range": 15,
 					"pushForce": 400,
 					"knockBack": 300,
 					"laserColor": "#794fb8",
 					"laserThickness": 0.2,
 					"laserFadeTime": 750,
-					"beams": 5,
+					"beams": 3,
 					"spread": 0.05
-				}
-			}
-		]
-	},
-	{
-		"name": "purpleOrbFlower",
-		"tier": "purple",
-		"weaponType": "orb",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damage": 1.55,
-					"coolDown": 235,
-					"range": 30,
-					"pushForce": 1250,
-					"knockBack": 350,
-					"laserColor": "#794fb8",
-					"laserThickness": 0.25,
-					"laserFadeTime": 750
-				}
-			}
-		]
-	},
-	{
-		"name": "purpleCannonFlower",
-		"tier": "purple",
-		"weaponType": "cannon",
-		"components": [
-			{
-				"name": "appearance"
-			},
-			{
-				"name": "item",
-				"object": {
-					"type": "weapon",
-					"damageMax": 8,
-					"damageMin": 4,
-					"coolDown": 1900,
-					"range": 40,
-					"pushForce": 2500,
-					"knockBack": 2500,
-					"laserColor": "#794fb8",
-					"laserThickness": 0.385,
-					"laserFadeTime": 3000
 				}
 			}
 		]

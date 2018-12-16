@@ -10,9 +10,7 @@
 	"limeTeam": "#9de0ad",
 	"cyanTeam": "#45ada8",
 
-	"redFlower": "#b84f4f",
-	"redFastFlower": "#b84f4f",
-	"purpleOrb": "purple",
-	"blueFlower": "#8ecdd9",
-	"blueCannonFlower": "#8ecdd9"
+	"starterTier": "#b84f4f",
+	"cloudTier": "#8ecdd9",
+	"purpleTier": "purple"
 }

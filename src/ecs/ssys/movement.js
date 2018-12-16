@@ -1,10 +1,10 @@
-const {vec2} = require('../../src/p2.min.js');
+const {vec2} = require('../../p2.min.js');
 const velocities = {};
 const emptyVec = vec2.create();
 let gameStarted = (typeof window === "undefined") ? false : true;
 
 entities.emitter.on('bodyRemove', entity => {
-	delete velocities[entity]
+	delete velocities[entity];
 });
 
 entities.emitter.on('movementAxisInput', (mA, entity) => {
@@ -15,7 +15,7 @@ entities.emitter.on('movementAxisInput', (mA, entity) => {
 
 		//finally, multiply the velocity by whatever you want
 		//their speed to be. 1 is too high.
-		vec2.scale(mA, mA, 10);
+		vec2.scale(mA, mA, 17.5);
 
 		//let's store this so we can apply it in the update loop.
 		velocities[entity] = mA;

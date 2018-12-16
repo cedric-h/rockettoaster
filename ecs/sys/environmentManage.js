@@ -1,11 +1,28 @@
+//node libs
 const fs = require('fse');
 const path = require('path');
+
+//json files
 const colors = require('../../src/gamedata/constants/colors.json');
 const itemTypes = require('../../gamedata/constants/sceneItems.json');
+const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
+
+//external files that needed to be .js
 const addComponentsList = require('../../src/helper/addComponentsList.js');
 const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
-const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
+
 var map;
+
+const tagFiles = [
+	{
+		"name": "tier",
+		"values": require('../../gamedata/constants/tiers.json')
+	},
+	{
+		"name" : "weaponType",
+		"values": require('../../gamedata/constants/weaponTypes.json')
+	}
+];
 
 const defaultComponents = {
 	"appearance": {
@@ -64,6 +81,23 @@ function makeMap() {
 	let mapHm = worldConfig.size/chunkSize;
 	//let's clear out the map so we can fill it up again.
 	map = [];
+
+	//lets apply data from external tag files, like weaponTypes and tiers.
+	itemTypes.forEach(type => {
+		tagFiles.forEach(tag => {
+			if(type[tag.name] !== undefined) {
+				let tagOfType = type[tag.name];
+				let tierData = tag.values[tagOfType];
+
+				if(tierData === undefined)
+					throw new Error(
+						type.name + "has unknown " + tag.name + ", " + tagOfType
+					);
+
+				Object.assign(type, tierData);
+			}
+		});
+	});
 
 	//takes three possible inputs:
 	//min is the only value. If this is the case, min is returned.
@@ -216,7 +250,7 @@ function addMapToGame() {
 		//note that item.type is used to fetch the color, not the type object.
 		//that's because the object is indexed by the name of the type, not the info.
 		let appearance = clientSideComponents.filter(c => c.name === "appearance")[0];
-		appearance.object.color = colors[item.type] || appearance.object.color;
+		appearance.object.color = colors[item.type] || colors[type.tier + "Tier"] || appearance.object.color;
 	});
 }
 
