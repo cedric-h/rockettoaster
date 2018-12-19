@@ -1,0 +1,24 @@
+{
+    "name": "redOrbFlower",
+    "tier": "starter",
+    "weaponType": "orb",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1,
+                "coolDown": 275,
+                "range": 15.5,
+                "pushForce": 750,
+                "knockBack": 150,
+                "laserColor": "#b84f4f",
+                "laserThickness": 0.175,
+                "laserFadeTime": 600
+            }
+        }
+    ]
+}

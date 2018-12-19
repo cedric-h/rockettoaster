@@ -1,10 +1,13 @@
-//node libs
+//libs
+const {vec2} = require("../../src/p2.min.js");
 const fs = require('fse');
 const path = require('path');
 
 //json files
 const colors = require('../../src/gamedata/constants/colors.json');
-const itemTypes = require('../../gamedata/constants/sceneItems.json');
+const itemTypes = require('glob')
+	.sync('gamedata/constants/sceneItems/**/*.json')
+	.map(fileName => require('../../' + fileName));
 const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
 
 //external files that needed to be .js
@@ -29,7 +32,6 @@ const defaultComponents = {
 		"server": false,
 		"client": true,
 		"object": {
-			"color": "colors.json"
 		}
 	},
 	"item": {
@@ -47,6 +49,37 @@ const defaultComponents = {
 		"client": false
 	}
 };
+
+//lets apply data from external tag files, like weaponTypes and tiers.
+itemTypes.forEach(type => {
+	tagFiles.forEach(tag => {
+		if(type[tag.name] !== undefined) {
+			let tagOfType = type[tag.name];
+			let tagData = tag.values[tagOfType];
+
+			if(tagData.object || !tagData.components) {
+				if(tagData === undefined)
+					throw new Error(
+						type.name + "has unknown " + tag.name + ", " + tagOfType
+					);
+
+				Object.assign(type, tagData.object || tagData);
+			}
+
+			if(tagData.components) {
+				type.components.forEach(component => {
+					let componentData = tagData.components[component.name];
+
+					if(component.object)
+						Object.assign(component.object, componentData);
+
+					else
+						component.value = componentData;
+				});
+			}
+		}
+	});
+});
 
 
 //we don't do this during module.exports.load because at 
@@ -82,23 +115,6 @@ function makeMap() {
 	//let's clear out the map so we can fill it up again.
 	map = [];
 
-	//lets apply data from external tag files, like weaponTypes and tiers.
-	itemTypes.forEach(type => {
-		tagFiles.forEach(tag => {
-			if(type[tag.name] !== undefined) {
-				let tagOfType = type[tag.name];
-				let tierData = tag.values[tagOfType];
-
-				if(tierData === undefined)
-					throw new Error(
-						type.name + "has unknown " + tag.name + ", " + tagOfType
-					);
-
-				Object.assign(type, tierData);
-			}
-		});
-	});
-
 	//takes three possible inputs:
 	//min is the only value. If this is the case, min is returned.
 	//min and max are both values. then, a value between them is returned.
@@ -120,39 +136,81 @@ function makeMap() {
 		return min + Math.random()*(max - min);
 	}
 
-	function makeItem(type, i) {
-		let item = {
-			type: type.name,
-			physicsConfig: {
-				shapeConfig: {
-					width: grabValue(type.size.width),
-					height: grabValue(type.size.height),
-				},
-				//can't compute bodyConfig here because 
-				//you need to know the shape values.
+	const childPos = vec2.create();
+	function addItem(type, position) {
+		//if it's an item that just holds more items,
+		//make the items it holds.
+		if(type.parentType) {
+			for(let j = 0; j < type.childCount; j++) {
+				vec2.add(
+					childPos,
+					position,
+					vec2.scale(
+						vec2.create(),
+						vec2.fromValues(...type.spacingBetweenChildren),
+						j
+					)
+				);
+				addItem(type.childType, vec2.clone(childPos));
 			}
-		};
+		}
 
-		item.physicsConfig.physical = (typeof type.physical === "undefined")
-			? true
-			: type.physical;
+		//but if it's an actual, real, actual, viewable item,
+		//add that to the map.
+		else {
+			let item = {
+				type: type,
+				physicsConfig: {
+					shapeConfig: {
+						width: grabValue(type.size.width),
+						height: grabValue(type.size.height),
+					},
+					//can't compute bodyConfig here because 
+					//you need to know the shape values.
+				}
+			};
 
-		//compute item.physicsConfig
-		let sC = item.physicsConfig.shapeConfig;
-		item.physicsConfig.bodyConfig = {
-			mass: sC.width * sC.height * type.density,
-			position: [
-				//randomly interspersed through the chunk
-				(Math.random() + i) * chunkSize,
-				//resting on the ground
-				//the yOffset paremeter allows you to have some things
-				//stick over or in the ground a bit.
-				sC.height/2 + (grabValue(type.yOffset) || 0)
-			]
-		};
+			item.physicsConfig.physical = (typeof type.physical === "undefined")
+				? true
+				: type.physical;
 
-		return item;
+			//compute item.physicsConfig
+			let sC = item.physicsConfig.shapeConfig;
+			item.physicsConfig.bodyConfig = {
+				mass: sC.width * sC.height * type.density,
+				position: vec2.add(
+					position,
+					position,
+					vec2.fromValues(
+						0,
+						(typeof type.layFlat === "undefined" || type.layFlat)
+							? sC.height/2
+							: 0
+					)
+				),
+				angle: type.randomAngle ? Math.random()*Math.PI*2 : 0
+			};
+
+			map.push(item);
+		}
 	}
+
+
+	function addItemInChunk(type, chunkIndex) {
+		return addItem(type, vec2.fromValues(
+			//randomly interspersed through the chunk
+			chunkIndex * chunkSize + (
+				typeof type.chunkRelativeX === "undefined"
+					? (Math.random() * chunkSize)
+					: type.chunkRelativeX
+				),
+			//resting on the ground
+			//the yOffset paremeter allows you to have some things
+			//stick over or in the ground a bit.
+			grabValue(type.yOffset) || 0
+		));
+	}
+
 
 	function addForEachChunk(type, shouldLeft=true, shouldRight=true) {
 		let leftBound  = shouldLeft  ? mapHm/-2 : 0;
@@ -175,12 +233,12 @@ function makeMap() {
 				let howManyItems = grabValue(type.rate);
 				if(howManyItems >= 1)
 					for(; 1 <= howManyItems; howManyItems--) {
-						map.push(makeItem(type, i));
+						addItemInChunk(type, i);
 						itemCount++;
 					}
 
 				if(Math.random() < howManyItems) {
-					map.push(makeItem(type, i));
+					addItemInChunk(type, i);
 					itemCount++;
 				}
 			}
@@ -208,7 +266,7 @@ function makeMap() {
 
 function addMapToGame() {
 	map.forEach(item => {
-		let type = itemTypes.filter(type => type.name === item.type)[0];
+		let type = item.type;
 		let entity = entities.create();
 
 		//because we want to generate a new map then.
@@ -250,7 +308,7 @@ function addMapToGame() {
 		//note that item.type is used to fetch the color, not the type object.
 		//that's because the object is indexed by the name of the type, not the info.
 		let appearance = clientSideComponents.filter(c => c.name === "appearance")[0];
-		appearance.object.color = colors[item.type] || colors[type.tier + "Tier"] || appearance.object.color;
+		appearance.object.color = appearance.object.color || colors[type.tier + "Tier"] || colors[type.name];
 	});
 }
 

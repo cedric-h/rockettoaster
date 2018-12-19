@@ -1,0 +1,37 @@
+{
+    "name": "pinkFlower",
+    "rate": 0.1,
+    "centerDistanceBounds": {
+        "min": 0.81,
+        "max": 1
+    },
+    "density": 50,
+    "size": {
+        "width": 0.5,
+        "height": 0.4
+    },
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+                "color": "#b84f7c"
+            }
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1,
+                "coolDown": 150,
+                "range": 1,
+                "pushForce": 100,
+                "knockBack": 1,
+                "laserColor": "#b84f7c",
+                "laserThickness": 0.25,
+                "laserFadeTime": 2000,
+                "beams": 10,
+                "spread": 0.04725
+            }
+        }
+    ]
+}

@@ -24,7 +24,8 @@ else
 //add ground and walls
 //starting with ground
 let ground = new p2.Body({
-	id: "ground"
+	id: "ground",
+	position: [0, worldConfig.floorHeight]
 });
 ground.addShape(new p2.Plane({
 	collisionGroup: Math.pow(2, 1),//terrain

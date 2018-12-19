@@ -1,0 +1,33 @@
+{
+    "name": "softCloud",
+    "rate": 5,
+    "density": 0,
+    "centerDistanceBounds": {
+        "min": 0.21,
+        "max": 1
+    },
+    "physical": false,
+    "yOffset": {
+        "min": 18,
+        "max": 21
+    },
+    "size": {
+        "width": {
+            "min": 5,
+            "max": 9
+        },
+        "height": {
+            "min": 1,
+            "max": 5
+        }
+    },
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+                "color": "GhostWhite",
+                "zIndex": 1
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "name": "purpleFastFlower",
+    "tier": "purple",
+    "weaponType": "fast",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1.25,
+                "coolDown": 75,
+                "range": 10,
+                "pushForce": 1200,
+                "knockBack": 65,
+                "laserColor": "#794fb8",
+                "laserThickness": 0.275,
+                "laserFadeTime": 650
+            }
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "redBlastFlower",
+    "tier": "starter",
+    "weaponType": "blast",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 0.9,
+                "coolDown": 1000,
+                "range": 10,
+                "pushForce": 500,
+                "knockBack": 250,
+                "laserColor": "#b84f4f",
+                "laserThickness": 0.25,
+                "laserFadeTime": 2000,
+                "beams": 4,
+                "spread": 0.08725
+            }
+        }
+    ]
+}

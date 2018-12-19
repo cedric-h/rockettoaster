@@ -1,0 +1,46 @@
+{
+	"name": "groundColumns",
+	"parentType": true,
+	"rate": 1,
+	"chunkRelativeX": 1.25,
+	"yOffset": -5.5,
+	"spacingBetweenChildren": [
+		0,
+		-5
+	],
+	"childCount": 10,
+	"childType": {
+		"name": "groundRow",
+		"parentType": true,
+		"spacingBetweenChildren": [
+			5,
+			0
+		],
+		"childCount": 2,
+		"childType": {
+			"name": "ground",
+			"density": 0,
+			"layFlat": false,
+			"randomAngle": true,
+			"size": {
+				"width": {
+					"min": 7,
+					"max": 9
+				},
+				"height": {
+					"min": 6.5,
+					"max": 7
+				}
+			},
+			"components": [
+				{
+					"name": "appearance"
+				},
+				{
+					"name": "health",
+					"value": 15
+				}
+			]
+		}
+	}
+}

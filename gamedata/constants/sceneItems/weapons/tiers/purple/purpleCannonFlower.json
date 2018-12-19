@@ -1,0 +1,25 @@
+{
+    "name": "purpleCannonFlower",
+    "tier": "purple",
+    "weaponType": "cannon",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damageMax": 8,
+                "damageMin": 4,
+                "coolDown": 1900,
+                "range": 50,
+                "pushForce": 2500,
+                "knockBack": 2500,
+                "laserColor": "#794fb8",
+                "laserThickness": 0.385,
+                "laserFadeTime": 3000
+            }
+        }
+    ]
+}

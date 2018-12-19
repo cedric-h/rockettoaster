@@ -1,0 +1,25 @@
+{
+    "name": "blueCannonFlower",
+    "tier": "cloud",
+    "weaponType": "cannon",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damageMax": 6,
+                "damageMin": 3,
+                "coolDown": 2250,
+                "range": 45,
+                "pushForce": 1750,
+                "knockBack": 1750,
+                "laserColor": "#8ecdd9",
+                "laserThickness": 0.365,
+                "laserFadeTime": 3000
+            }
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "purpleBlastFlower",
+    "weaponType": "blast",
+    "tier": "purple",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1,
+                "coolDown": 549,
+                "range": 13,
+                "pushForce": 400,
+                "knockBack": 300,
+                "laserColor": "#794fb8",
+                "laserThickness": 0.2,
+                "laserFadeTime": 750,
+                "beams": 8,
+                "spread": 0.05
+            }
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "name": "blueFastFlower",
+    "tier": "cloud",
+    "weaponType": "fast",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 0.55,
+                "coolDown": 125,
+                "range": 9.5,
+                "pushForce": 1200,
+                "knockBack": 65,
+                "laserColor": "#8ecdd9",
+                "laserThickness": 0.275,
+                "laserFadeTime": 650,
+                "beams": 2,
+                "spread": 0.0698
+            }
+        }
+    ]
+}

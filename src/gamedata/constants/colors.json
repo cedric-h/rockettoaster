@@ -1,6 +1,7 @@
 {
 	"ground": "#594f4f",
 	"sky": "#547980",
+	"underground": "#363030",
 
 	"rock": "slategray",
 	"tree": "#664b49",

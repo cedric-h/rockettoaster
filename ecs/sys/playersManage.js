@@ -146,7 +146,6 @@ function addPlayer(entity, team) {
 	
 	//record team
 	entities.addComponent(entity, "health");
-	entities.setComponent(entity, "health", 5);
 
 	//add inventory
 	entities.addComponent(entity, "inventory");

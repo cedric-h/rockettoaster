@@ -1,0 +1,24 @@
+{
+    "name": "purpleOrbFlower",
+    "tier": "purple",
+    "weaponType": "orb",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1.55,
+                "coolDown": 235,
+                "range": 22,
+                "pushForce": 1250,
+                "knockBack": 350,
+                "laserColor": "#794fb8",
+                "laserThickness": 0.25,
+                "laserFadeTime": 750
+            }
+        }
+    ]
+}

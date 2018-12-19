@@ -1,0 +1,27 @@
+{
+    "name": "thickBush",
+    "rate": 3.6,
+    "centerDistanceBounds": {
+        "min": 0,
+        "max": 0.8
+    },
+    "physical": false,
+    "size": {
+        "width": {
+            "min": 8,
+            "max": 9
+        },
+        "height": {
+            "min": 3,
+            "max": 9
+        }
+    },
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+                "zIndex": -2
+            }
+        }
+    ]
+}

@@ -94,9 +94,12 @@ module.exports = {
 		ctx.scale(worldConfig.zoom, -worldConfig.zoom);
 
 		ctx.translate(camera.position[0], camera.position[1]);
+
+		ctx.fillStyle = colors.underground;
+		ctx.fillRect(worldConfig.size/-2, 0, worldConfig.size, -60);
 		
 		ctx.fillStyle = colors.ground;
-		ctx.fillRect(worldConfig.size/-2, 0, worldConfig.size, -60);
+		ctx.fillRect(worldConfig.size/-2, worldConfig.floorHeight, worldConfig.size, -60);
 
 		//great, now render each and every rectangle.
 		appearances.forEach(entity => {

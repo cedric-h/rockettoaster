@@ -1,0 +1,26 @@
+{
+    "name": "blueBlastFlower",
+    "tier": "cloud",
+    "weaponType": "blast",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 2,
+                "coolDown": 750,
+                "range": 11.5,
+                "pushForce": 7500,
+                "knockBack": 250,
+                "laserColor": "#8ecdd9",
+                "laserThickness": 0.3,
+                "laserFadeTime": 2250,
+                "beams": 3,
+                "spread": 0.375
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+{
+    "name": "redFastFlower",
+    "tier": "starter",
+    "weaponType": "fast",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 0.8,
+                "coolDown": 125,
+                "range": 9,
+                "pushForce": 115,
+                "knockBack": 90,
+                "laserColor": "#b84f4f",
+                "laserThickness": 0.185,
+                "laserFadeTime": 700
+            }
+        }
+    ]
+}

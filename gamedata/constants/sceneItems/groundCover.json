@@ -1,0 +1,22 @@
+{
+	"name": "ground",
+	"rate": 1,
+	"chunkRelativeX": 5.5,
+	"yOffset": -4,
+	"size": {
+		"width": 11,
+		"height": {
+			"min": 4,
+			"max": 4.1
+		}
+	},
+	"components": [
+		{
+			"name": "appearance"
+		},
+		{
+			"name": "health",
+			"value": 5
+		}
+	]
+}

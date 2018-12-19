@@ -1,0 +1,24 @@
+{
+    "name": "blueOrbFlower",
+    "tier": "cloud",
+    "weaponType": "orb",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 1.25,
+                "coolDown": 250,
+                "range": 20,
+                "pushForce": 1000,
+                "knockBack": 250,
+                "laserColor": "#8ecdd9",
+                "laserThickness": 0.225,
+                "laserFadeTime": 750
+            }
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "name": "redCannonFlower",
+    "tier": "starter",
+    "weaponType": "cannon",
+    "components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damageMax": 2.5,
+                "damageMin": 1.25,
+                "coolDown": 2750,
+                "range": 40,
+                "pushForce": 1000,
+                "knockBack": 1000,
+                "laserColor": "#b84f4f",
+                "laserThickness": 0.35,
+                "laserFadeTime": 3000
+            }
+        }
+    ]
+}

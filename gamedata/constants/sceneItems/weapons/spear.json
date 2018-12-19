@@ -1,0 +1,25 @@
+{
+    "name": "spear",
+    "tier": "starter",
+    "rate": 0,
+    "minimumPerSide": 0,
+    "size": {
+        "width": 0.2,
+        "height": 3
+    },
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+                "color": "#664b49"
+            }
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "shoots": "projectile"
+            }
+        }
+    ]
+}
