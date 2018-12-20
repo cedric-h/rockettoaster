@@ -3,7 +3,7 @@
 	"parentType": true,
 	"rate": 1,
 	"chunkRelativeX": 1.25,
-	"yOffset": -5.5,
+	"yOffset": -8.25,
 	"spacingBetweenChildren": [
 		0,
 		-5
@@ -37,8 +37,43 @@
 					"name": "appearance"
 				},
 				{
+					"name": "damageParticles",
+					"object": {
+						"spread": 0.6283185307179586,
+						"perDamagePointDealt": 1,
+						"size": {
+							"min": 0.2,
+							"max": 0.8
+						},
+						"force": {
+							"min": 9,
+							"max": 12
+						},
+						"lifeTime": {
+							"min": 1500,
+							"max": 3500
+						}
+					}
+				},
+				{
+					"name": "deathParticles",
+					"object": {
+						"spread": 0.6283185307179586,
+						"count": 8,
+						"size": {
+							"min": 3,
+							"max": 4
+						},
+						"force": 12,
+						"lifeTime": {
+							"min": 1000,
+							"max": 2000
+						}
+					}
+				},
+				{
 					"name": "health",
-					"value": 15
+					"value": 9
 				}
 			]
 		}

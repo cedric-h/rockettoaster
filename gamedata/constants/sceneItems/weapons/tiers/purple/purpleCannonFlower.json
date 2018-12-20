@@ -14,7 +14,7 @@
                 "damageMin": 4,
                 "coolDown": 1900,
                 "range": 50,
-                "pushForce": 2500,
+                "pushForce": 3500,
                 "knockBack": 2500,
                 "laserColor": "#794fb8",
                 "laserThickness": 0.385,

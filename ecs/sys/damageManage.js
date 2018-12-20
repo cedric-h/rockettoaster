@@ -13,21 +13,33 @@ entities.emitter.on('playerKilled', entity => {
 });
 
 //E = entity
-entities.emitter.on('weaponDamage', (victimE, shooterE) => {
+entities.emitter.on('weaponDamage', (victimE, shooterE, raycastResult, contactPoint) => {
 	let health = entities.getComponent(victimE, "health");
+
 	if(typeof health !== "undefined") {
 		let inventory = entities.getComponent(shooterE, "inventory");
 
 		if(!inventory.weapon)
 			return;
 
+		let damage = (grabDamage(inventory.weapon) || 1);
+
 		entities.setComponent(
 			victimE,
 			"health",
-			health - (grabDamage(inventory.weapon) || 1)
+			health - damage
+		);
+
+		entities.emitter.emit("damageDealt",
+			victimE,
+			shooterE,
+			raycastResult,
+			contactPoint,
+			damage
 		);
 
 		if(entities.getComponent(victimE, "health") <= 0) {
+			entities.emitter.emit('entityKilled', victimE);
 
 			if(typeof entities.getComponent(victimE, "client") !== "undefined") {
 				entities.emitter.emit('playerKilled', victimE);

@@ -1,7 +1,12 @@
 module.exports = {
 	factory: () => {
 		return {
-			physical: true
+			physical: true,
+			shapeType: "Box"
 		};
+	},
+	reset: pC => {
+		pC.physical = true;
+		pC.shapeType = "Box";
 	}
 };

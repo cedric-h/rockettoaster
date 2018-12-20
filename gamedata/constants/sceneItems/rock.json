@@ -1,15 +1,15 @@
 {
     "name": "rock",
-    "rate": 3,
+    "rate": 1.5,
     "density": 25,
     "size": {
         "width": {
-            "min": 0.8,
-            "max": 1
+            "min": 1.6,
+            "max": 2
         },
         "height": {
-            "min": 0.35,
-            "max": 0.7
+            "min": 0.7,
+            "max": 1.4
         }
     },
     "centerDistanceBounds": {
@@ -23,6 +23,41 @@
 		{
 			"name": "health",
 			"value": 15
+		},
+		{
+			"name": "damageParticles",
+			"object": {
+				"spread": 1.5707963267948966,
+				"perDamagePointDealt": 2,
+				"size": {
+					"min": 0.2,
+					"max": 0.8
+				},
+				"force": {
+					"min": 2,
+					"max": 3.5
+				},
+				"lifeTime": {
+					"min": 500,
+					"max": 750
+				}
+			}
+		},
+		{
+			"name": "deathParticles",
+			"object": {
+				"spread": 0.6283185307179586,
+				"count": 3,
+				"size": {
+					"min": 1,
+					"max": 1.75
+				},
+				"force": 2,
+				"lifeTime": {
+					"min": 1000,
+					"max": 2000
+				}
+			}
 		}
     ]
 }

@@ -127,7 +127,8 @@ function packetFromEntity(entity) {
 			object: {
 				bodyConfig: updatedBodyConfig,
 				shapeConfig: physicsConfig.shapeConfig,
-				physical: physicsConfig.physical
+				physical: physicsConfig.physical,
+				shapeType: physicsConfig.shapeType
 			}
 		}, {
 			name: "serverId",
@@ -146,6 +147,44 @@ function addPlayer(entity, team) {
 	
 	//record team
 	entities.addComponent(entity, "health");
+
+	//particles
+	entities.addComponent(entity, "damageParticles");
+	let damageParticles = entities.getComponent(entity, "damageParticles");
+	Object.assign(damageParticles, {
+		"spread": 0.6283185307179586,
+		"perDamagePointDealt": 4,
+		"color": (team === "cyan") ? "#A32ACA" : "#77f051",
+		"size": {
+			"min": 0.1,
+			"max": 0.2
+		},
+		"force": {
+			"min": 3,
+			"max": 9
+		},
+		"lifeTime": {
+			"min": 1500,
+			"max": 3500
+		}
+	});
+
+	entities.addComponent(entity, "deathParticles");
+	let deathParticles = entities.getComponent(entity, "deathParticles");
+	Object.assign(deathParticles, {
+		"spread": 0.6283185307179586,
+		"count": 5,
+		"color": (team === "lime") ? "#c4ff71" : team,
+		"size": {
+			"min": 0.2,
+			"max": 0.3
+		},
+		"force": 12,
+		"lifeTime": {
+			"min": 1000,
+			"max": 2000
+		}
+	});
 
 	//add inventory
 	entities.addComponent(entity, "inventory");
@@ -171,9 +210,9 @@ function addPlayer(entity, team) {
 	let clientSideComponents = entities.getComponent(entity, "clientSideComponents")
 	clientSideComponents.push(...[
 		{
-			name: "appearance",
-			object: {
-				color: colors[team + "Team"]
+			"name": "appearance",
+			"object": {
+				"color": colors[team + "Team"]
 			}
 		},
 	]);

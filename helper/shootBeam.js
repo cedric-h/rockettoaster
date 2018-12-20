@@ -51,7 +51,13 @@ module.exports = (inputAim, shooterEntity, weapon) => {
 			);
 
 			//hurt 'em
-			entities.emitter.emit("weaponDamage", victimEntity, shooterEntity);
+			entities.emitter.emit(
+				"weaponDamage",
+				victimEntity,
+				shooterEntity,
+				result,
+				aim
+			);
 		}
 	}
 

@@ -95,6 +95,7 @@ module.exports = {
 
 		ctx.translate(camera.position[0], camera.position[1]);
 
+		//render the game's two different skies.
 		ctx.fillStyle = colors.underground;
 		ctx.fillRect(worldConfig.size/-2, 0, worldConfig.size, -60);
 		
@@ -103,18 +104,17 @@ module.exports = {
 
 		//great, now render each and every rectangle.
 		appearances.forEach(entity => {
-			let body       = entities.getComponent(entity, "body");
+			let physicsConfig = entities.getComponent(entity, "physicsConfig");
 			let appearance = entities.getComponent(entity, "appearance");
 
 			ctx.globalAlpha = (appearance.transparency !== undefined)
 				? appearance.transparency
 				: 1;
 
-			if(body !== undefined)
-				body.shapes.forEach(shape => {
-					ctx.fillStyle = appearance.color;
-					drawRectangle(body, shape);
-				});
+			if(physicsConfig !== undefined) {
+				ctx.fillStyle = appearance.color;
+				drawRectangle(physicsConfig.body, physicsConfig.shapeConfig);
+			}
 
 			else if(appearance.type === "line") {
 				ctx.strokeStyle = appearance.color;

@@ -47,6 +47,14 @@ const defaultComponents = {
 	"team": {
 		"server": true,
 		"client": false
+	},
+	"damageParticles": {
+		"server": true,
+		"client": false
+	},
+	"deathParticles": {
+		"server": true,
+		"client": false
 	}
 };
 
@@ -165,6 +173,7 @@ function makeMap() {
 						width: grabValue(type.size.width),
 						height: grabValue(type.size.height),
 					},
+					shapeType: "Box"
 					//can't compute bodyConfig here because 
 					//you need to know the shape values.
 				}
@@ -280,7 +289,7 @@ function addMapToGame() {
 		Object.assign(physicsConfig, item.physicsConfig);
 		physicsConfig.shapeConfig.collisionGroup = collisionGroups.terrain;
 
-		entities.emitter.emit('bodyFromBox', entity);
+		entities.emitter.emit('bodyFrom' + physicsConfig.shapeType, entity);
 
 		//add generic components that we want here on the server,
 		//which may or may not be ones that are also on the client.
