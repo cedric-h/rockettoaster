@@ -26,6 +26,45 @@
             "object": {
                 "color": "Gainsboro"
             }
-        }
+        },
+	{
+		"name": "health",
+		"value": 15
+	},
+	{
+		"name": "damageParticles",
+		"object": {
+			"spread": 0.6283185307179586,
+			"perDamagePointDealt": 1,
+			"size": {
+				"min": 0.2,
+				"max": 0.8
+			},
+			"force": {
+				"min": 9,
+				"max": 12
+			},
+			"lifeTime": {
+				"min": 1500,
+				"max": 3500
+			}
+		}
+	},
+	{
+		"name": "deathParticles",
+		"object": {
+			"spread": 0.6283185307179586,
+			"count": 10,
+			"size": {
+				"min": 1,
+				"max": 1.25
+			},
+			"force": 10,
+			"lifeTime": {
+				"min": 2000,
+				"max": 2500
+			}
+		}
+	}
     ]
 }

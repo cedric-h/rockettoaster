@@ -1,1 +1,1 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{7:function(o,p){o.exports={factory:()=>({physical:!0})}}}]);
+(window.webpackJsonp=window.webpackJsonp||[]).push([[7],{7:function(p,e){p.exports={factory:()=>({physical:!0,shapeType:"Box"}),reset:p=>{p.physical=!0,p.shapeType="Box"}}}}]);
