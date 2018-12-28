@@ -25,6 +25,13 @@
 			"value": 15
 		},
 		{
+			"name": "chasing",
+			"object": {
+				"speed": 7,
+				"minimumDistance": 12
+			}
+		},
+		{
 			"name": "damageParticles",
 			"object": {
 				"spread": 1.5707963267948966,
