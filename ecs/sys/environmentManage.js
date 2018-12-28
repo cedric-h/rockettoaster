@@ -44,6 +44,10 @@ const defaultComponents = {
 		"server": true,
 		"client": false,
 	},
+	"chasing": {
+		"server": true,
+		"client": false,
+	},
 	"team": {
 		"server": true,
 		"client": false
