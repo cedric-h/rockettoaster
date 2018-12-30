@@ -2,13 +2,13 @@
 	"name": "groundColumns",
 	"parentType": true,
 	"rate": 1,
-	"chunkRelativeX": 1.25,
+	"chunkRelativeX": 2.5,
 	"yOffset": -8.25,
 	"spacingBetweenChildren": [
 		0,
 		-5
 	],
-	"childCount": 10,
+	"childCount": 1,
 	"childType": {
 		"name": "groundRow",
 		"parentType": true,
@@ -16,7 +16,7 @@
 			5,
 			0
 		],
-		"childCount": 2,
+		"childCount": 3,
 		"childType": {
 			"name": "ground",
 			"density": 0,

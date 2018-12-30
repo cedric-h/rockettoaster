@@ -1,10 +1,10 @@
 {
 	"name": "ground",
 	"rate": 1,
-	"chunkRelativeX": 5.5,
+	"chunkRelativeX": 8,
 	"yOffset": -6.66,
 	"size": {
-		"width": 11,
+		"width": 16,
 		"height": {
 			"min": 6.65,
 			"max": 6.66

@@ -1,8 +1,8 @@
 {
-	"size": 100,
+	"size": 210,
 	"zoom": 25,
-	"floorHeight": -45,
-	"chunkSize": 10,
+	"floorHeight": -10,
+	"chunkSize": 15,
 	"zIndexLowest": 0,
 	"zIndexHighest": 1
 }

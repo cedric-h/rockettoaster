@@ -6,7 +6,12 @@
 		"test": "nodemon",
 		"build": "webpack --config webpack.prod.js",
 		"start": "start node ecsDirectoryUpdater.js & start nodemon index.js & webpack-dev-server --open --config webpack.dev.js",
-		"startClient": "webpack-dev-server --config webpack.dev.js",
+		"siteHost": "webpack-dev-server --config webpack.dev.js",
+		"gameServer": "nodemon index.js",
+		"devTools": "node ecsDirectoryUpdater.js",
+		"siteHostBg": "nohup webpack-dev-server --config webpack.dev.js > /dev/null 2>&1 &",
+		"gameServerBg": "nohup nodemon index.js > /dev/null 2>&1 &",
+		"devToolsBg": "nohup node ecsDirectoryUpdater.js > /dev/null 2>&1 &",
 		"startHttpServer": "node index.js & npm run build & http-server ./dist"
 	},
 	"repository": {

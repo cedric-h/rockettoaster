@@ -1,4 +1,9 @@
 const p2 = require('../../p2.min.js');
+const {chunkSize} = require('../../gamedata/constants/worldConfig.json');
+
+//a dictionary of entities and the chunk they are in.
+//for frequent fliers.
+const chunks = {};
 
 function angleLerp(a, b, t) {
 	shortest_angle = ((((b - a) % (Math.PI*2)) + (Math.PI*3)) % (Math.PI*2)) - Math.PI;
@@ -11,11 +16,32 @@ let lastUpdated = Date.now();
 
 entities.emitter.on('loaded', () => {
 
+	entities.emitter.on('physicsConfigAddedFromChunkLoader', entity => {
+		setImmediate(
+			() => {
+				if(entities.find('body').indexOf(entity) !== -1) {
+					let body = entities.getComponent(entity, "body");
+					if(body !== undefined) {
+						body.shouldTeleport = true;
+					}
+				}
+			}
+		);
+	});
+
+	entities.emitter.on('physicsConfigUnloadedFromChunk', (physConf, entity) => {
+		let body = entities.getComponent(entity, "body");
+
+		physConf.object.bodyConfig.position = body.position;
+		physConf.object.bodyConfig.angle = body.angle;
+	});
+
 	server.on('teleport', data => {
 		let entity = entities.find('serverId').filter(entity =>
 			entities.getComponent(entity, "serverId") === data.serverId
 		)[0];
 		let body = entities.getComponent(entity, "body");
+
 		body.position = data.to;
 	});
 	
@@ -65,22 +91,32 @@ module.exports = {
 		Object.keys(goalBody).forEach(key => {
 			let goalValue = goalBody[key];
 			let value = body[key];
+			let deltaPercent = (Date.now() - lastUpdated)/(1000);
 			
 
-			if(key === "position") {
-				p2.vec2.lerp(
+			if(!body.shouldTeleport) {
+				if(key === "position")
+					p2.vec2.lerp(
+						value,
+						value,
+						goalValue,
+						delta
+					);
+			}
+
+			else {
+				p2.vec2.copy(
 					value,
-					value,
-					goalValue,
-					delta
+					goalValue
 				);
+				body.shouldTeleport = false;
 			}
 
 			if(key === "angle") {
 				value = angleLerp(
 					value,
 					goalValue,
-					(Date.now() - lastUpdated)/(1000/10)
+					deltaPercent
 				);
 			}
 		});

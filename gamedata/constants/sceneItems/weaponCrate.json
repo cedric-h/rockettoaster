@@ -1,0 +1,36 @@
+{
+    "name": "weaponCrate",
+    "rate": 1,
+    "density": 10,
+    "size": {
+	    "width": 1.5,
+	    "height": 1
+	},
+    "centerDistanceBounds": {
+        "min": 0,
+        "max": 0.2
+    },
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+            	"color": "brown"
+            }
+        },
+		{
+			"name": "health",
+			"value": 15
+		},
+		{
+			"name": "loot",
+			"object": {
+				"items": [
+					{
+						"itemName": "purpleCannonFlower",
+						"chance": 0.25
+					}
+				]
+			}
+		}
+    ]
+}
