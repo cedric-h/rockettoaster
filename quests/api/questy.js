@@ -10,8 +10,8 @@ module.exports = {
 	*  Object to save the target goal and the current progress
 	*/
 	Goal: function(ob) {
-		this.goal = ob.goal;
-		this.current = ob.current;
+		this.goal = ob.goal || 10;
+		this.current = ob.current || 0;
 		this.ui = new q.GoalUI(this);
 	},
 
@@ -51,14 +51,15 @@ module.exports = {
 	*  Main quest object that stores and utilizes data from the user
 	*/
 	Quest: function(ob) {
-		this.description = ob.description;
-		this.goals = ob.goals; // An array of goal objects
+		this.questName = ob.questName || "Missing Quest Name";
+		this.description = ob.description || "Missing description";
+		this.goals = ob.goals || []; // An array of goal objects
 
 		this.ui = {
 			// html output console's id
 			containerID: "console",
 			// a little hacky but this generates a random string of charaters for the id of the quest's div
-			ID: Math.random().toString(36).substring(7)
+			ID: Math.random().toString(36).substring(5)
 		}
 
 		/**
@@ -77,9 +78,16 @@ module.exports = {
 		*/
 		const initUI = () => {
 			let q = document.createElement("DIV");
+			let qName = document.createElement("H3");
+			let desc = document.createElement("SPAN");
 			q.setAttribute("id",this.ui.ID);
 			let t = document.createTextNode(this.description);
-			q.appendChild(t);
+			let qN = document.createTextNode(this.questName);
+			qName.appendChild(qN);
+			desc.appendChild(t);
+
+			q.appendChild(qName);
+			q.appendChild(desc);
 			document.getElementById(this.ui.containerID).appendChild(q);
 		}
 
@@ -87,9 +95,11 @@ module.exports = {
 		*  Progress a goal by a certain amount
 		*/
 		this.progress = function(goal, amount) {
-			goal.current += amount;
+			if (goal.current + amount <= goal.goal) {
+				goal.current += amount;
+			}
 
-			if (goal.current === goal.goal) {
+			if (goal.current >= goal.goal) {
 				this.complete(goal);
 				return;
 			}
@@ -110,7 +120,13 @@ module.exports = {
 		*/
 		this.turnIn = function() {
 			// TODO: distribute rewards
-			document.getElementById(this.ui.ID).parentNode.removeChild(document.getElementById(this.ui.ID));
+			if (this.goals.every(goalIsComplete)) {
+				document.getElementById(this.ui.ID).parentNode.removeChild(document.getElementById(this.ui.ID));
+			}
+		}
+
+		const goalIsComplete = (goal) => {
+			return goal.current === goal.goal;
 		}
 
 		init();

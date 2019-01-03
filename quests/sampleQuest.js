@@ -20,9 +20,16 @@ let goalName2 = new Questy.Goal({
 });
 
 let questName = new Questy.Quest({
+
+	// note that you have to use "questName" rather than "name"
+	questName: "Quest Name Example"
 	description: "This quest is an example...",
 	goals: [
 		goalName1,
 		goalName2
 	]
 });
+
+const bunnyKilled = () => {
+	questName.progress(goalName1, 1);
+}
