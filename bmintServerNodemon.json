@@ -1,0 +1,3 @@
+{
+	"exec": "rsync -a --no-compress --delete /cygdrive/c/rockettoaster/ defecaterainbows@defecaterainbows-MS-7681:rockettoaster/"
+}

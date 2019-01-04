@@ -1,6 +1,6 @@
 {
     "name": "softCloud",
-    "rate": 5,
+    "rate": 2.5,
     "density": 0,
     "centerDistanceBounds": {
         "min": 0.21,
@@ -9,16 +9,16 @@
     "physical": false,
     "yOffset": {
         "min": 18,
-        "max": 21
+        "max": 24
     },
     "size": {
         "width": {
-            "min": 5,
-            "max": 9
+            "min": 10,
+            "max": 18
         },
         "height": {
-            "min": 1,
-            "max": 5
+            "min": 2,
+            "max": 10
         }
     },
     "components": [

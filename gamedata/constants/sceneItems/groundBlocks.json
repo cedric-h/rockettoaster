@@ -2,18 +2,18 @@
 	"name": "groundColumns",
 	"parentType": true,
 	"rate": 1,
-	"chunkRelativeX": 1.25,
-	"yOffset": -8.25,
+	"chunkRelativeX": 2.5,
+	"yOffset": -11.25,
 	"spacingBetweenChildren": [
 		0,
-		-5
+		-10
 	],
-	"childCount": 10,
+	"childCount": 3,
 	"childType": {
 		"name": "groundRow",
 		"parentType": true,
 		"spacingBetweenChildren": [
-			5,
+			10,
 			0
 		],
 		"childCount": 2,
@@ -24,14 +24,15 @@
 			"randomAngle": true,
 			"size": {
 				"width": {
-					"min": 7,
-					"max": 9
+					"min": 14,
+					"max": 18
 				},
 				"height": {
-					"min": 6.5,
-					"max": 7
+					"min": 13,
+					"max": 14
 				}
 			},
+			"collisionGroup": "groundBlocks",
 			"components": [
 				{
 					"name": "appearance"
@@ -73,7 +74,7 @@
 				},
 				{
 					"name": "health",
-					"value": 9
+					"value": 27
 				}
 			]
 		}

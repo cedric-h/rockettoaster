@@ -1,8 +1,8 @@
 const p2 = require('../../p2.min.js');
 const colors = require('../../gamedata/constants/colors.json');
 const worldConfig = require('../../gamedata/constants/worldConfig.json');
-var appearances = [];
 
+var appearances = [];
 var canvas, ctx;
 
 

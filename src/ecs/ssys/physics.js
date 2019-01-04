@@ -7,11 +7,11 @@ const frameEstimate = 1/60;//typeof window === "undefined"
 	//? 1/30
 	//: 1/60;
 
-let bodiesToRemove = [];
+var bodiesToRemove = [];
 
 
 //configure physics world.
-let world = new p2.World({
+var world = new p2.World({
 	gravity: [0, -3,82]
 });
 

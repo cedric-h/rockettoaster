@@ -1,6 +1,6 @@
 {
     "name": "bush",
-    "rate": 3,
+    "rate": 2.5,
     "centerDistanceBounds": {
         "min": 0.21,
         "max": 0.8

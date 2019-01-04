@@ -23,11 +23,20 @@ EntityPool.prototype.create = function() {
 };
 EntityPool.prototype.destroy = function(id) {
   var entity = this.entities[id];
+	//announce to all that removal is imminent
+	Object.keys(entity).forEach(comp => {
+		if(comp !== undefined) {
+			if(comp === "id")
+				return;
+			this.emitter.emit(comp + "Remove", id);
+		}
+	});
+	//actually remove
   Object.keys(entity).forEach(function(component) {
     if (component === "id") {
       return;
     }
-    this.removeComponent(id, component);
+    this.removeComponent(id, component, false);
   }.bind(this));
   delete this.entities[id];
   this.entityPool.free(entity);
@@ -46,9 +55,10 @@ EntityPool.prototype.resetComponent = function(id, component) {
 EntityPool.prototype.getComponent = function(id, component) {
   return this.entities[id][component];
 };
-EntityPool.prototype.removeComponent = function(id, component) {
+EntityPool.prototype.removeComponent = function(id, component, shouldEmit=true) {
 
-  this.emitter.emit(component + "Remove", id);
+	if(shouldEmit)
+		this.emitter.emit(component + "Remove", id);
 
   var oldValue = this.entities[id][component];
   if (oldValue === undefined) {

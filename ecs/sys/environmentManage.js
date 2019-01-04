@@ -4,15 +4,13 @@ const fs = require('fse');
 const path = require('path');
 
 //json files
-const colors = require('../../src/gamedata/constants/colors.json');
 const itemTypes = require('glob')
 	.sync('gamedata/constants/sceneItems/**/*.json')
 	.map(fileName => require('../../' + fileName));
 const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
 
 //external files that needed to be .js
-const addComponentsList = require('../../src/helper/addComponentsList.js');
-const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
+const spawn = require('../../helper/spawn.js');
 
 var map;
 
@@ -27,71 +25,23 @@ const tagFiles = [
 	}
 ];
 
-const defaultComponents = {
-	"appearance": {
-		"server": false,
-		"client": true,
-		"object": {
+
+function grabValue(min, max) {
+
+	//the parameters might not be so straightforward.
+	if(max === undefined) {
+		//if it's just a straightforward value, use that.
+		if(typeof min !== "object") {
+			return min;
 		}
-	},
-	"item": {
-		"server": true,
-		"client": false,
-		"object": {
-		}
-	},
-	"health": {
-		"server": true,
-		"client": false,
-	},
-	"chasing": {
-		"server": true,
-		"client": false,
-	},
-	"team": {
-		"server": true,
-		"client": false
-	},
-	"damageParticles": {
-		"server": true,
-		"client": false
-	},
-	"deathParticles": {
-		"server": true,
-		"client": false
+
+		//otherwise, min is an object with a min and max inside.
+		max = min.max;
+		min = min.min;
 	}
-};
 
-//lets apply data from external tag files, like weaponTypes and tiers.
-itemTypes.forEach(type => {
-	tagFiles.forEach(tag => {
-		if(type[tag.name] !== undefined) {
-			let tagOfType = type[tag.name];
-			let tagData = tag.values[tagOfType];
-
-			if(tagData.object || !tagData.components) {
-				if(tagData === undefined)
-					throw new Error(
-						type.name + "has unknown " + tag.name + ", " + tagOfType
-					);
-
-				Object.assign(type, tagData.object || tagData);
-			}
-
-			if(tagData.components) {
-				type.components.forEach(component => {
-					let componentData = tagData.components[component.name];
-
-					if(component.object)
-						Object.assign(component.object, componentData);
-
-					else
-						component.value = componentData;
-				});
-			}
-		}
-	});
-});
+	return min + Math.random()*(max - min);
+}
 
 
 //we don't do this during module.exports.load because at 
@@ -127,26 +77,6 @@ function makeMap() {
 	//let's clear out the map so we can fill it up again.
 	map = [];
 
-	//takes three possible inputs:
-	//min is the only value. If this is the case, min is returned.
-	//min and max are both values. then, a value between them is returned.
-	//min is an object with a min and max. a value between these two is returned.
-	function grabValue(min, max) {
-
-		//the parameters might not be so straightforward.
-		if(max === undefined) {
-			//if it's just a straightforward value, use that.
-			if(typeof min !== "object") {
-				return min;
-			}
-
-			//otherwise, min is an object with a min and max inside.
-			max = min.max;
-			min = min.min;
-		}
-
-		return min + Math.random()*(max - min);
-	}
 
 	const childPos = vec2.create();
 	function addItem(type, position) {
@@ -170,40 +100,17 @@ function makeMap() {
 		//but if it's an actual, real, actual, viewable item,
 		//add that to the map.
 		else {
-			let item = {
-				type: type,
-				physicsConfig: {
-					shapeConfig: {
-						width: grabValue(type.size.width),
-						height: grabValue(type.size.height),
-					},
-					shapeType: "Box"
-					//can't compute bodyConfig here because 
-					//you need to know the shape values.
-				}
-			};
-
-			item.physicsConfig.physical = (typeof type.physical === "undefined")
-				? true
-				: type.physical;
-
-			//compute item.physicsConfig
-			let sC = item.physicsConfig.shapeConfig;
-			item.physicsConfig.bodyConfig = {
-				mass: sC.width * sC.height * type.density,
-				position: vec2.add(
-					position,
-					position,
-					vec2.fromValues(
-						0,
-						(typeof type.layFlat === "undefined" || type.layFlat)
-							? sC.height/2
-							: 0
-					)
-				),
-				angle: type.randomAngle ? Math.random()*Math.PI*2 : 0
-			};
-
+			let item = spawn.getJSON(type);
+			item.physicsConfig.bodyConfig.position = vec2.add(
+				position,
+				position,
+				vec2.fromValues(
+					0,
+					(typeof type.layFlat === "undefined" || type.layFlat)
+						? item.physicsConfig.shapeConfig.height/2
+						: 0
+				)
+			);
 			map.push(item);
 		}
 	}
@@ -279,49 +186,10 @@ function makeMap() {
 
 function addMapToGame() {
 	map.forEach(item => {
-		let type = item.type;
-		let entity = entities.create();
+		let entity = spawn.json(item);
 
 		//because we want to generate a new map then.
 		entities.addComponent(entity, "removeOnGameReset");
-
-		//add components where special behavior is required
-		entities.addComponent(entity, "physicsConfig");
-		let physicsConfig = entities.getComponent(entity, "physicsConfig");
-
-		//configure physics config
-		Object.assign(physicsConfig, item.physicsConfig);
-		physicsConfig.shapeConfig.collisionGroup = collisionGroups.terrain;
-
-		entities.emitter.emit('bodyFrom' + physicsConfig.shapeType, entity);
-
-		//add generic components that we want here on the server,
-		//which may or may not be ones that are also on the client.
-		type.components = type.components
-			.map(c => defaultComponents[c.name]
-				? Object.assign(JSON.parse(JSON.stringify(defaultComponents[c.name])), c)
-				: c
-			);
-
-		addComponentsList(entity, type.components.filter(c => c.server));
-
-		//add the generic components that we want on the client.
-		entities.addComponent(entity, "clientSideComponents");
-		let clientSideComponents = entities.getComponent(entity, "clientSideComponents");
-		clientSideComponents.push(
-			...type.components
-			.filter(c => 
-				c.client
-			)
-		);
-
-		//replace the appearance com with the color in colors.json
-		//this way the colors for everything can be in one place,
-		//and you don't have to sift through the world gen info to change them.
-		//note that item.type is used to fetch the color, not the type object.
-		//that's because the object is indexed by the name of the type, not the info.
-		let appearance = clientSideComponents.filter(c => c.name === "appearance")[0];
-		appearance.object.color = appearance.object.color || colors[type.tier + "Tier"] || colors[type.name];
 	});
 }
 

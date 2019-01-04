@@ -1,0 +1,93 @@
+{
+    "name": "bunny",
+    "rate": 3,
+    "density": 20,
+	"collisionGroup": "mob",
+    "size": {
+        "width": {
+            "min": 0.8,
+            "max": 0.9333
+        },
+        "height": {
+            "min": 0.5333,
+            "max": 0.6933
+        }
+    },
+	"centerDistanceBounds": {
+		"min": 0,
+		"max": 0.2
+	},
+    "components": [
+        {
+            "name": "appearance",
+			"object": {
+				"color": "snow"
+			}
+        },
+		{
+			"name": "health",
+			"value": 10
+		},
+		{
+			"name": "fireAtNearby",
+			"object": {
+				"targetComponent": "client",
+				"reflexSlowDown": 250,
+				"damageMultiplier": 0.8,
+				"shakeChance": 0.8,
+				"shakeMax": 0.105,
+				"shakeMin": 0.087,
+				"weapon": {
+					"chooseFromList": true,
+					"list": ["purpleOrbFlower", "purpleFastFlower", "purpleBlastFlower", "purpleCannonFlower"]
+				}
+			}
+		},
+		{
+			"name": "chasing",
+			"object": {
+				"speed": 12,
+				"minimumDistance": 35,
+				"continueChasing": true,
+				"stopChasingDistance": 60
+			}
+		},
+		{
+			"name": "damageParticles",
+			"object": {
+				"spread": 0.6283185307179586,
+				"perDamagePointDealt": 3.2,
+				"color": "#b83d3d",
+				"size": {
+					"min": 0.13,
+					"max": 0.26
+				},
+				"force": {
+					"min": 3,
+					"max": 9
+				},
+				"lifeTime": {
+					"min": 2500,
+					"max": 4500
+				}
+			}
+		},
+		{
+			"name": "deathParticles",
+			"object": {
+				"spread": 0.6283185307179586,
+				"count": 7,
+				"color": "Gainsboro",
+				"size": {
+					"min": 0.36,
+					"max": 0.67
+				},
+				"force": 22,
+				"lifeTime": {
+					"min": 9000,
+					"max": 10000
+				}
+			}
+		}
+    ]
+}

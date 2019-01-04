@@ -11,10 +11,16 @@ function dropItem(item, dropperEntity) {
 	let itemEntityItem = entities.getComponent(itemEntity, "item");
 	Object.assign(itemEntityItem, item);
 
+
 	entities.addComponent(itemEntity, "physicsConfig");
+
+	if(item.asPhysical.bodyConfig.position === undefined)
+		item.asPhysical.bodyConfig.position = vec2.create();
+
 	vec2.add(item.asPhysical.bodyConfig.position, up, holderBody.position);
 	entities.entities[itemEntity].physicsConfig = item.asPhysical;
 	entities.emitter.emit('bodyFromBox', itemEntity);
+
 
 	entities.addComponent(itemEntity, "clientSideComponents");
 	let clientSideComponents = entities.getComponent(itemEntity, "clientSideComponents");

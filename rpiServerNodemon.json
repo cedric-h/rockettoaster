@@ -1,0 +1,3 @@
+{
+	"exec": "rsync -avz --delete -e ssh  /cygdrive/c/rockettoaster/ pi@raspberrypi:rockettoaster/"
+}

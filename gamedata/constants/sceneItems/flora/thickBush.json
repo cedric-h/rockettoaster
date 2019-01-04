@@ -1,6 +1,6 @@
 {
     "name": "thickBush",
-    "rate": 3.6,
+    "rate": 3,
     "centerDistanceBounds": {
         "min": 0,
         "max": 0.8

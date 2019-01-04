@@ -9,8 +9,8 @@ const ray = new Ray({
 const aim = vec2.create();
 const knockback = vec2.create();
 
-module.exports = (inputAim, shooterEntity, weapon) => {
-	let team = entities.getComponent(shooterEntity, "team");
+function shootOnce(inputAim, shooterEntity, weapon) {
+	let collisionGroup = entities.getComponent(shooterEntity, "physicsConfig").shapeConfig.collisionGroup;
 	let shooterBody = entities.getComponent(shooterEntity, "body");
 
 	vec2.copy(aim, inputAim);
@@ -32,7 +32,7 @@ module.exports = (inputAim, shooterEntity, weapon) => {
 	vec2.copy(ray.to, aim);
 
 	//prepare the raycasting objects and raycast
-	ray.collisionMask = ~collisionGroups[team + "Team"];
+	ray.collisionMask = ~collisionGroup;
 	ray.update();
 	result.reset();
 	world.raycast(result, ray);
@@ -56,7 +56,8 @@ module.exports = (inputAim, shooterEntity, weapon) => {
 				victimEntity,
 				shooterEntity,
 				result,
-				aim
+				aim,
+				weapon
 			);
 		}
 	}
@@ -88,4 +89,31 @@ module.exports = (inputAim, shooterEntity, weapon) => {
 			}
 		}
 	]);
+}
+
+const rotatedAim = vec2.create();
+module.exports = (inputAim, shooterEntity, wep) => {
+	
+	if(wep.canShootTime === undefined || wep.canShootTime <= Date.now()) {
+		wep.canShootTime = Date.now() + wep.coolDown;
+
+		if(wep.beams > 1) {
+			let totalRange = (wep.beams - 1)*wep.spread;
+			for(let i = totalRange/-2; i <= totalRange/2; i+= wep.spread) {
+				vec2.rotate(
+					rotatedAim,
+					inputAim,
+					i
+				);
+				shootOnce(
+					rotatedAim,
+					shooterEntity,
+					wep
+				);
+			}
+		}
+
+		else
+			shootOnce(inputAim, shooterEntity, wep);
+	}
 }

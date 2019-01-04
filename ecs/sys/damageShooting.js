@@ -8,28 +8,10 @@ const beamOrProjectile = {
 	beam: require('../../helper/shootBeam.js')
 };
 
-const rotatedAim = vec2.create();
 function shoot(inputAim, shooterEntity, wep) {
-	let shootOnce = beamOrProjectile.beam;
+	let shoot = beamOrProjectile.beam;
 
-	if(wep.beams > 1) {
-		let totalRange = (wep.beams - 1)*wep.spread;
-		for(let i = totalRange/-2; i <= totalRange/2; i+= wep.spread) {
-			vec2.rotate(
-				rotatedAim,
-				inputAim,
-				i
-			);
-			shootOnce(
-				rotatedAim,
-				shooterEntity,
-				wep
-			);
-		}
-	}
-
-	else
-		shootOnce(inputAim, shooterEntity, wep);
+	shoot(inputAim, shooterEntity, wep);
 }
 
 entities.emitter.on('clientCreate', entity => {
@@ -98,5 +80,7 @@ entities.emitter.on('aimingAxisInput', (input, shooterEntity) => {
 
 	inf.aim = input;
 });
+
+
 module.exports = {
 };

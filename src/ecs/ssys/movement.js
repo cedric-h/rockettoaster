@@ -28,8 +28,11 @@ module.exports = {
 			let body = entities.getComponent(entity, "body");
 			let v = velocities[entity];
 			
-			vec2.add(body.velocity, body.velocity, vec2.scale(emptyVec, v, delta));
-			vec2.set(emptyVec, 0, 0);
+			vec2.add(
+				body.velocity,
+				body.velocity,
+				vec2.scale(emptyVec, v, delta)
+			);
 		})
 	}
 };
