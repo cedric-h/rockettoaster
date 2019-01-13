@@ -1,24 +1,22 @@
 {
-	"name": "groundCover",
-	"rate": 1,
-	"chunkRelativeX": 10,
-	"yOffset": -10,
+	"name": "ground",
+	"density": 0,
+	"layFlat": false,
+	"randomAngle": true,
 	"size": {
-		"width": 20.5,
-		"height": 10
+		"width": {
+			"min": 14,
+			"max": 18
+		},
+		"height": {
+			"min": 13,
+			"max": 14
+		}
 	},
 	"collisionGroup": "groundBlocks",
 	"components": [
 		{
-			"name": "appearance",
-			"object": {
-				"color": "#594f4f",
-				"zIndex": 1
-			}
-		},
-		{
-			"name": "health",
-			"value": 5
+			"name": "appearance"
 		},
 		{
 			"name": "damageParticles",
@@ -43,17 +41,21 @@
 			"name": "deathParticles",
 			"object": {
 				"spread": 0.6283185307179586,
-				"count": 10,
+				"count": 8,
 				"size": {
-					"min": 4,
-					"max": 5
+					"min": 3,
+					"max": 4
 				},
-				"force": 10,
+				"force": 12,
 				"lifeTime": {
-					"min": 2000,
-					"max": 2500
+					"min": 1000,
+					"max": 2000
 				}
 			}
+		},
+		{
+			"name": "health",
+			"value": 27
 		}
 	]
 }

@@ -1,8 +1,17 @@
 const addComponentsList = require('../src/helper/addComponentsList.js');
-const {vec2} = require('../src/p2.min.js');
+const {vec2, RaycastResult, Ray} = require('../src/p2.min.js');
 const collisionGroups = require('../gamedata/constants/collisionGroups.js');
 const colors = require('../src/gamedata/constants/colors.json');
 
+
+//for putOnGround
+const result = new RaycastResult();
+const fromOffset = vec2.fromValues(0, 5);
+const toOffset = vec2.fromValues(0, -10);
+const ray = new Ray({
+	mode: Ray.CLOSEST,
+	collisionMask: collisionGroups.groundBlocks
+});
 
 //takes three possible inputs:
 //min is the only value. If this is the case, min is returned.
@@ -39,6 +48,10 @@ const defaultComponents = {
 		"object": {
 		}
 	},
+	"inventory": {
+		"server": true,
+		"client": false
+	},
 	"health": {
 		"server": true,
 		"client": false,
@@ -60,6 +73,10 @@ const defaultComponents = {
 		"client": false
 	},
 	"deathParticles": {
+		"server": true,
+		"client": false
+	},
+	"playerSpawnPoint": {
 		"server": true,
 		"client": false
 	}
@@ -118,10 +135,8 @@ function replaceChooseFromListWithChoice(obj) {
     for(let k in obj) {
         if(typeof obj[k] === "object" && obj[k] !== null) {
 
-			if(obj[k].chooseFromList) {
+			if(obj[k].chooseFromList)
 				obj[k] = obj[k].list[Math.floor(Math.random()*obj[k].list.length)];
-				console.log(obj[k]);
-			}
 
 			else
 				replaceChooseFromListWithChoice(obj[k]);
@@ -134,8 +149,8 @@ module.exports = {
 	types: types,
 
 
-	item: name => {
-		let entity = module.exports.json(module.exports.getJSON(name));
+	item: (name, entity) => {
+		entity = module.exports.json(module.exports.getJSON(name), entity);
 		
 		let item = entities.getComponent(entity, "item");
 		if(item !== undefined) {
@@ -157,8 +172,8 @@ module.exports = {
 	},
 	
 
-	itemAt: (name, position) => {
-		let lootItemEntity = module.exports.item(name);
+	itemAt: (name, position, entity) => {
+		let lootItemEntity = module.exports.item(name, entity);
 		let lootItemBody = entities.getComponent(lootItemEntity, "body");
 
 		vec2.copy(
@@ -170,10 +185,38 @@ module.exports = {
 	},
 
 
-	json: (item) => {
+	json: (item, entity) => {
 		let type = item.type;
 
-		let entity = entities.create();
+		entity = (entity !== undefined) ? entity : entities.create();
+
+		if(type.putOnGround) {
+			let pos = item.physicsConfig.bodyConfig.position;
+			vec2.add(
+				ray.from,
+				pos,
+				fromOffset
+			);
+			vec2.add(
+				ray.to,
+				pos,
+				toOffset
+			);
+			ray.update();
+			result.reset();
+			world.raycast(result, ray);
+
+			if(result.hasHit()) {
+				result.getHitPoint(
+					pos,
+					ray
+				);
+
+				pos[1] += ((typeof type.layFlat === "undefined" || type.layFlat)
+					? item.physicsConfig.shapeConfig.height/2
+					: 0) + (type.yOffset || 0);
+			}
+		}
 
 		//add components where special behavior is required
 		entities.addComponent(entity, "physicsConfig");

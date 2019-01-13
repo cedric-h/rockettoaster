@@ -1,0 +1,70 @@
+{
+    "name": "player",
+	"collisionGroup": "player",
+    "density": 20,
+    "size": {
+        "width": {
+            "min": 0.48,
+            "max": 0.52
+        },
+        "height": {
+            "min": 0.48,
+            "max": 0.52
+        }
+    },
+    "components": [
+        {
+            "name": "appearance",
+			"object": {
+				"color": "#9de0ad"
+			}
+        },
+		{
+			"name": "health",
+			"value": 5
+		},
+		{
+				"name": "inventory",
+				"object": {
+					"size": 1
+				}
+		},
+		{
+			"name": "damageParticles",
+			"object": {
+				"spread": 0.6283185307179586,
+				"perDamagePointDealt": 4,
+				"color": "#77f051",
+				"size": {
+					"min": 0.1,
+					"max": 0.2
+				},
+				"force": {
+					"min": 3,
+					"max": 9
+				},
+				"lifeTime": {
+					"min": 1500,
+					"max": 3500
+				}
+			}
+		},
+		{
+			"name": "deathParticles",
+			"object": {
+				"spread": 0.6283185307179586,
+				"count": 5,
+				"color": "#c4ff71",
+				"size": {
+					"min": 0.2,
+					"max": 0.3
+				},
+				"force": 12,
+				"lifeTime": {
+					"min": 1000,
+					"max": 2000
+				}
+			}
+		}
+    ]
+}

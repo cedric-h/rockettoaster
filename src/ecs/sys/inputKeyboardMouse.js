@@ -1,5 +1,14 @@
+const requireAll = r => r.keys().map(r);
+
 const worldConfig = require('../../gamedata/constants/worldConfig.json');
 const {vec2} = require('../../p2.min.js');
+const inputs = {
+	buttons: requireAll(require.context('./../../gamedata/constants/input/buttons/', true, /\.json$/)),
+	movementAxis: require('../../gamedata/constants/input/movementAxis.json'),
+	mouse: require('../../gamedata/constants/input/mouse.json')
+};
+console.log(inputs);
+
 var canvas;
 
 
@@ -36,6 +45,7 @@ function sendAim(event) {
 
 
 const updateMovementAxis = event => {
+	let movementAxis = inputs.movementAxis;
 	let key = movementAxis.keys[event.key];
 	
 	if(key !== undefined) {
@@ -52,29 +62,6 @@ const updateMovementAxis = event => {
 		);
 	}
 };
-const movementAxis = {
-	"values": [0, 0],
-	"keys": {
-		"a":{
-			"coefficient": -1,
-			"direction": 0
-		},
-		"d": {
-			"coefficient": 1,
-			"direction": 0
-		},
-		"s": {
-			"coefficient": -1,
-			"direction": 1
-		},
-		"w": {
-			"coefficient": 1,
-			"direction": 1
-		}
-	},
-};
-window.addEventListener("keydown", updateMovementAxis);
-window.addEventListener("keyup", updateMovementAxis);
 
 
 const handlePress = (event, inputsList, pressType, downType) => {
@@ -91,31 +78,23 @@ const handlePress = (event, inputsList, pressType, downType) => {
 	}
 }
 
-entities.emitter.on('teamChosen', () => {
+entities.emitter.on('gameJoined', () => {
 	canvas = document.getElementById("canvas");
 
-	const handleMousePress = event => handlePress(event, [
-		//0, left click
-		{
-			"name": "weaponTrigger",
-			"sendAlsoMousePos": true
-		}
-	], "button", "mousedown");
+	const handleMousePress = event => handlePress(event, inputs.mouse, "button", "mousedown");
 	window.addEventListener("mousedown", handleMousePress);
 	window.addEventListener("mouseup", handleMousePress);
 	window.addEventListener("mousemove", sendAim);
 
 
-	const handleKeyPress = event => handlePress(event, {
-		"e": {
-			"name": "pickUpButton",
-		},
-		"r": {
-			"name": "dropButton",
-		}
-	}, "key", "keydown");
+	const handleKeyPress = event => inputs.buttons.forEach(buttonSet =>
+		handlePress(event, buttonSet, "key", "keydown")
+	);
 	window.addEventListener("keydown", handleKeyPress);
 	window.addEventListener("keyup", handleKeyPress);
+
+	window.addEventListener("keydown", updateMovementAxis);
+	window.addEventListener("keyup", updateMovementAxis);
 });
 		
 

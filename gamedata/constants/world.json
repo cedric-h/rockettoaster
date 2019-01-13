@@ -1,0 +1,110 @@
+{
+	"chunks": [
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"groundCover"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"groundSection",
+				"groundCover"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"groundCover"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"rock"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"rock"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"groundCover",
+				"bunny"
+			]
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"groundCover",
+				"bunny"
+			]
+		},
+		{
+			"proceduralSpawns": []
+		},
+		{
+			"proceduralSpawns": []
+		},
+		{
+			"proceduralSpawns": []
+		},
+		{
+			"proceduralSpawns": []
+		},
+		{
+			"proceduralSpawns": [
+				"bush",
+				"thickBush",
+				"tree",
+				"groundSection",
+				"groundCover"
+			]
+		}
+	],
+	"placements": [
+		{
+			"item": "purpleFastFlower",
+			"position": [5, 10]
+		},
+		{
+			"item": "spawnDias",
+			"position": [30, 0],
+			"angle": 0.04159
+		},
+		{
+			"item": "groundCover",
+			"position": [70, -9.7],
+			"angle": 0.03
+		},
+		{
+			"item": "groundCover",
+			"position": [90, -9.28],
+			"angle": 0.014
+		}
+	]
+}

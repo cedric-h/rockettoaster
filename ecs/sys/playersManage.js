@@ -3,6 +3,7 @@ const p2 = require('../../src/p2.min');
 const vec2 = p2.vec2;
 
 const broadcast = require('../../helper/broadcast.js');
+const spawn = require('../../helper/spawn.js');
 
 const physicsConstants = require('../../gamedata/constants/physics.json');
 const collisionGroups = require('../../gamedata/constants/collisionGroups.js');
@@ -11,21 +12,23 @@ const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
 
 var wss;
 
-const positionAtStart = (function() {
 
-	const startPositions = {
-		cyan: [ worldConfig.size/2, 1],
-		lime: [-worldConfig.size/2, 1]
-	};
+const startPos = vec2.create();
+const startPosOffset = vec2.fromValues(0, 2.5);
+const getStartPosition = () => {
+	let spawnPoints = entities.find('playerSpawnPoint');
 
-	return (entity) => {
-		let team = entities.getComponent(entity, "team");
-		let body = entities.getComponent(entity, "body") || {position: vec2.create()};
-		vec2.copy(body.position, startPositions[team]);
-		body.position[0] += Math.sign(startPositions[team][0]) * -2 * (entities.find('team').indexOf(entity) || 1);
-		return body.position;
-	}
-})();
+	if(spawnPoints.length > 0)
+		vec2.add(
+			startPos,
+			entities.getComponent(spawnPoints[
+				Math.floor(Math.random() * spawnPoints.length)
+			], "body").position,
+			startPosOffset
+		);
+
+	return startPos;
+}
 
 
 entities.emitter.on('shareNewEntity', newEntity => {
@@ -35,31 +38,14 @@ entities.emitter.on('shareNewEntity', newEntity => {
 entities.emitter.on('playerKilled', entity => {
 	broadcast('teleport', {
 		serverId: entity, 
-		to: positionAtStart(entity)
+		to: getStartPosition()
 	});
+	let body = entities.getComponent(entity, "body");
+	vec2.copy(
+		body.position,
+		getStartPosition()
+	);
 });
-
-//after a game has been one, we one to reset the map.
-//when that happens, we want to tell the players what the new map looks like
-//and teleport all players to their team spawns.
-entities.emitter.on('resetDone', () => {
-	//resend all of the things that last only one game
-	entities.find('body').forEach(entity => { //all physics bodies,
-		//the player's physicsConfig hasn't been turned into one of these yet.
-
-		if(typeof entities.getComponent(entity, "removeOnGameReset") !== "undefined")
-			broadcast('newEntity', packetFromEntity(entity));
-	});
-
-	entities.find('client').forEach(entity => {
-		if(typeof entities.getComponent(entity, "team") !== "undefined")
-			broadcast('teleport', {
-				serverId: entity, 
-				to: positionAtStart(entity)
-			});
-	});
-});
-
 
 entities.emitter.on('loaded', () => {
 
@@ -83,14 +69,25 @@ entities.emitter.on('loaded', () => {
 
 		//let's tell this player about the physics objects :D
 		//this way he'll have a neat little login screen.
+		let playerSpawnPointEntity = entities.find('playerSpawnPoint')[0];
 		entities.find('body').forEach(entity => { //all physics bodies,
 			//the player's physicsConfig hasn't been turned into one of these yet.
-			client.send("newEntity", packetFromEntity(entity));
+			
+			//center the camera on the thing that's being spawned,
+			//if it's where the player will spawn when they finally log in.
+			if(entity === playerSpawnPointEntity)
+				client.send("newEntity", packetFromEntity(entity).concat([{
+					name: "cameraFocus",
+					value: true
+				}]));
+
+			else
+				client.send("newEntity", packetFromEntity(entity));
 		});
 
-		client.once("teamChosen", data => {
+		client.once("gameJoined", data => {
 			entities.emitter.emit(newPlayer + "JoinedGame");
-			addPlayer(newPlayer, data.team);
+			addPlayer(newPlayer);
 		});
 
 		//if they leave, tell everyone they leaved, and then get rid of them.
@@ -139,88 +136,14 @@ function packetFromEntity(entity) {
 
 
 function addPlayer(entity, team) {
-	console.log('player chose team!');
+	console.log('player joined game!');
+
+	spawn.itemAt("player", getStartPosition(), entity);
+	console.log(entity);
 	
-	//record team
-	entities.addComponent(entity, "team");
-	entities.setComponent(entity, "team", team);
-	
-	//record team
-	entities.addComponent(entity, "health");
-
-	//particles
-	entities.addComponent(entity, "damageParticles");
-	let damageParticles = entities.getComponent(entity, "damageParticles");
-	Object.assign(damageParticles, {
-		"spread": 0.6283185307179586,
-		"perDamagePointDealt": 4,
-		"color": (team === "cyan") ? "#A32ACA" : "#77f051",
-		"size": {
-			"min": 0.1,
-			"max": 0.2
-		},
-		"force": {
-			"min": 3,
-			"max": 9
-		},
-		"lifeTime": {
-			"min": 1500,
-			"max": 3500
-		}
-	});
-
-	entities.addComponent(entity, "deathParticles");
-	let deathParticles = entities.getComponent(entity, "deathParticles");
-	Object.assign(deathParticles, {
-		"spread": 0.6283185307179586,
-		"count": 5,
-		"color": (team === "lime") ? "#c4ff71" : team,
-		"size": {
-			"min": 0.2,
-			"max": 0.3
-		},
-		"force": 12,
-		"lifeTime": {
-			"min": 1000,
-			"max": 2000
-		}
-	});
-
-	//add inventory
-	entities.addComponent(entity, "inventory");
-	let inventory = entities.getComponent(entity, "inventory");
-	inventory.size = 1;
-
-	//add physics
-	//add a physicsConfig to configure and then turn into a body component.
-	entities.addComponent(entity, "physicsConfig");
-	//grab the physicsConfig and configure it
-	let physicsConfig = entities.getComponent(entity, "physicsConfig");
-	physicsConfig.shapeConfig = {
-		width: 0.5,
-		height: 0.5,
-		collisionGroup: collisionGroups[team + "Team"]
-	};
-	physicsConfig.bodyConfig = {
-		mass: 5,
-		position: positionAtStart(entity)
-	};
-
-	entities.addComponent(entity, "clientSideComponents");
-	let clientSideComponents = entities.getComponent(entity, "clientSideComponents")
-	clientSideComponents.push(...[
-		{
-			"name": "appearance",
-			"object": {
-				"color": colors[team + "Team"]
-			}
-		},
-	]);
-
-
 	//now that we have all of the components we need, let's tell
 	//the clients about this brand new player.
-	//the client automatically adds a body if it sees a body config,
+	//the client automatically adds a body if it sees a physics config,
 	//because we can't just send over an entire body; they're recursive,
 	//so they can't be serialized, and they're just big, so it's easier
 	//just to send what the server used to make the bodies, so they can
@@ -230,30 +153,31 @@ function addPlayer(entity, team) {
 	//other players need to have about this player. The player
 	//that controls this entity is told a bit more, in addition
 	//to this.
-	let baseComponentList = packetFromEntity(entity);/*a list of components...*/  
+	let baseComponentList = packetFromEntity(entity);//a list of components...
 
-	entities.find('client').forEach(entity => {
-		let client = entities.getComponent(entity, "client");
+	entities.find('client').forEach(clientEntity => {
+		let client = entities.getComponent(clientEntity, "client");
 		
-		if(entity !== entity)
+		if(entity !== clientEntity)
 			client.send('newEntity', baseComponentList);
-
-		else //you're telling them about themselves, so...
-			client.send('newEntity', baseComponentList.concat([
-				{
-					name: "localPlayer",
-					value: true
-				},
-				{
-					name: "cameraFocus",
-					value: true
-				}
-			]));
+		
+		//you're telling them about themselves, which was done
+		//automatically by the spawn.itemAt, so, just give them the extra coms they need
+		else setImmediate(() => 
+			client.send('addComponents', {
+				serverId: clientEntity,
+				components: [
+					{
+						name: "localPlayer",
+						value: true
+					},
+					{
+						name: "cameraFocus",
+						value: true
+					}
+				]
+			}));
 	});
-	
-
-	//finally, turn that physicsConfig component into a body component.
-	entities.emitter.emit('bodyFromBox', entity);
 };
 
 

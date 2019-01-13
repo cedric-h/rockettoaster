@@ -1,6 +1,6 @@
 {
     "name": "bunny",
-    "rate": 3,
+    "rate": 2.3,
     "density": 20,
 	"collisionGroup": "mob",
     "size": {
@@ -29,6 +29,13 @@
 			"value": 10
 		},
 		{
+			"name": "loot",
+			"object": {
+				"item": "bunny",
+				"chance": 0.5
+			}
+		},
+		{
 			"name": "fireAtNearby",
 			"object": {
 				"targetComponent": "client",
@@ -39,7 +46,7 @@
 				"shakeMin": 0.087,
 				"weapon": {
 					"chooseFromList": true,
-					"list": ["purpleOrbFlower", "purpleFastFlower", "purpleBlastFlower", "purpleCannonFlower"]
+					"list": ["purpleCannonFlower", "purpleCannonFlower", "purpleBlastFlower", "purpleCannonFlower"]
 				}
 			}
 		},

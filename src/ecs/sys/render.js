@@ -1,4 +1,4 @@
-const p2 = require('../../p2.min.js');
+const {vec2} = require('../../p2.min.js');
 const colors = require('../../gamedata/constants/colors.json');
 const worldConfig = require('../../gamedata/constants/worldConfig.json');
 
@@ -70,7 +70,7 @@ entities.emitter.on('appearanceRemove', entity => {
 
 
 module.exports = {
-	update: () => {
+	update: (entities, delta) => {
 		//background
 		ctx.fillStyle = colors.sky;
 		ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -79,11 +79,11 @@ module.exports = {
 		let cameraFocusEntity = entities.find('cameraFocus')[0];
 		if(cameraFocusEntity !== undefined) {
 			let cameraFocus = entities.getComponent(cameraFocusEntity, "body");
-			p2.vec2.lerp(
+			vec2.lerp(
 				camera.position,
 				camera.position,
 				[-cameraFocus.position[0], -cameraFocus.position[1]],
-				0.05
+				delta*3
 			);
 		}
 
@@ -97,10 +97,10 @@ module.exports = {
 
 		//render the game's two different skies.
 		ctx.fillStyle = colors.underground;
-		ctx.fillRect(worldConfig.size/-2, 0, worldConfig.size, -60);
+		ctx.fillRect(0, 0, worldConfig.size, -60);
 		
 		ctx.fillStyle = colors.ground;
-		ctx.fillRect(worldConfig.size/-2, worldConfig.floorHeight, worldConfig.size, -60);
+		ctx.fillRect(0, worldConfig.floorHeight, worldConfig.size, -60);
 
 		//great, now render each and every rectangle.
 		appearances.forEach(entity => {

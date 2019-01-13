@@ -3,7 +3,8 @@
     "rate": 1,
     "density": 8.3,
     "physical": false,
-    "yOffset": -0.015,
+    "yOffset": -0.15,
+	"putOnGround": true,
     "centerDistanceBounds": {
         "min": 0.21,
         "max": 0.8
@@ -14,7 +15,7 @@
             "max": 2.1
         },
         "height": {
-            "min": 11,
+            "min": 13,
             "max": 16
         }
     },

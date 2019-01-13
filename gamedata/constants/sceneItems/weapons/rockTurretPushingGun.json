@@ -1,0 +1,23 @@
+{
+	"name": "rockTurretPushingGun",
+	"weaponType": "cannon",
+	"components": [
+        {
+            "name": "appearance"
+        },
+        {
+            "name": "item",
+            "object": {
+                "type": "weapon",
+                "damage": 0.05,
+                "coolDown": 800,
+                "range": 20,
+                "pushForce": 6420,
+                "knockBack": 0,
+                "laserColor": "chartreuse",
+                "laserThickness": 0.385,
+                "laserFadeTime": 3000
+            }
+        }
+    ]
+}

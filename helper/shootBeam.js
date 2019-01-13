@@ -25,10 +25,10 @@ function shootOnce(inputAim, shooterEntity, weapon) {
 	vec2.scale(aim, aim, weapon.range);
 
 	//make each relative to the player's position
-	vec2.add(aim, shooterBody.interpolatedPosition, aim);
+	vec2.add(aim, shooterBody.position, aim);
 
 	//set ray to go from the player's position to aim
-	vec2.copy(ray.from, shooterBody.interpolatedPosition);
+	vec2.copy(ray.from, shooterBody.position);
 	vec2.copy(ray.to, aim);
 
 	//prepare the raycasting objects and raycast
@@ -74,7 +74,7 @@ function shootOnce(inputAim, shooterEntity, weapon) {
 				type: "line",
 				lineWidth: weapon.laserThickness,
 				coords: [
-					shooterBody.interpolatedPosition,
+					shooterBody.position,
 					aim
 				]
 			}

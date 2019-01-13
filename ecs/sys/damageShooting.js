@@ -16,7 +16,7 @@ function shoot(inputAim, shooterEntity, wep) {
 
 entities.emitter.on('clientCreate', entity => {
 	shooterInfos[entity] = {
-		canShoot:true
+		canShoot: true
 	};
 });
 

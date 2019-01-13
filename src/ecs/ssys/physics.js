@@ -35,10 +35,11 @@ ground.addShape(new p2.Plane({
 world.addBody(ground);
 
 //add two left/right boundary walls
-[-1, 1].forEach(direction => {
+//was originally [-1, 1]
+[0, 1].forEach(direction => {
 	let wall = new p2.Body({
 		angle: Math.PI * (direction == true ? 0.5 : 1.5),
-		position: [worldConfig.size/2*direction, 0],
+		position: [worldConfig.size/* /2 */*direction, 0],
 		id: (direction > 0 ? "right" : "left") + "Wall"
 	});
 	wall.addShape(new p2.Plane({

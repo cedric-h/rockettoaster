@@ -1,5 +1,6 @@
 {
     "name": "thickBush",
+	"putOnGround": true,
     "rate": 3,
     "centerDistanceBounds": {
         "min": 0,

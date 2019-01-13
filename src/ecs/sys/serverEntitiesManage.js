@@ -22,6 +22,7 @@ entities.emitter.on('loaded', () => {
 	});
 
 	server.on('addComponents', data => {
+		console.log(data.serverId);
 		let entity = entities.find('serverId').filter(entity =>
 			entities.getComponent(entity, "serverId") === data.serverId
 		)[0];

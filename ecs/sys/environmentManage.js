@@ -1,13 +1,11 @@
 //libs
-const {vec2} = require("../../src/p2.min.js");
+const {vec2, Ray, RaycastResult} = require("../../src/p2.min.js");
 const fs = require('fse');
 const path = require('path');
 
 //json files
-const itemTypes = require('glob')
-	.sync('gamedata/constants/sceneItems/**/*.json')
-	.map(fileName => require('../../' + fileName));
 const worldConfig = require('../../src/gamedata/constants/worldConfig.json');
+const world = require('../../gamedata/constants/world.json');
 
 //external files that needed to be .js
 const spawn = require('../../helper/spawn.js');
@@ -79,7 +77,11 @@ function makeMap() {
 
 
 	const childPos = vec2.create();
-	function addItem(type, position) {
+	function addItem(type, position, angle) {
+		type = (typeof type === "string")
+			? spawn.types.find(t => t.name === type)
+			: type;
+
 		//if it's an item that just holds more items,
 		//make the items it holds.
 		if(type.parentType) {
@@ -93,7 +95,7 @@ function makeMap() {
 						j
 					)
 				);
-				addItem(type.childType, vec2.clone(childPos));
+				addItem(type.childType, vec2.clone(childPos), angle);
 			}
 		}
 
@@ -101,6 +103,7 @@ function makeMap() {
 		//add that to the map.
 		else {
 			let item = spawn.getJSON(type);
+
 			item.physicsConfig.bodyConfig.position = vec2.add(
 				position,
 				position,
@@ -111,7 +114,14 @@ function makeMap() {
 						: 0
 				)
 			);
-			map.push(item);
+			if(angle !== undefined)
+				item.physicsConfig.bodyConfig.angle = angle;
+
+			if(type.putOnGround)
+				map.push(item);
+
+			else
+				map.unshift(item);
 		}
 	}
 
@@ -131,55 +141,28 @@ function makeMap() {
 		));
 	}
 
+	world.chunks.forEach((chunk, i) => {
+		chunk.proceduralSpawns.forEach(typeName => {
+			let type = spawn.types.find(t => t.name === typeName);
 
-	function addForEachChunk(type, shouldLeft=true, shouldRight=true) {
-		let leftBound  = shouldLeft  ? mapHm/-2 : 0;
-		let rightBound = shouldRight ? mapHm/2  : 0;
-		for(let i = leftBound; i < rightBound; i++) {
-			//the rate variable in the JSON is how many per chunk
-
-			//find out if the item is in the right area relative to the center of the map.
-			let isWithinBounds = true;
-			let distance = Math.abs((i >= 0 ? i + 1 : i) / (mapHm/2));
-			let bounds = type.centerDistanceBounds;
-			if(bounds !== undefined) {
-				isWithinBounds = false;
-				if(distance <= bounds.max && distance >= bounds.min)
-					isWithinBounds = true;
-			}
-
-			if(isWithinBounds) {
-				//deal with the whole number part of the rate
-				let howManyItems = grabValue(type.rate);
-				if(howManyItems >= 1)
-					for(; 1 <= howManyItems; howManyItems--) {
-						addItemInChunk(type, i);
-						itemCount++;
-					}
-
-				if(Math.random() < howManyItems) {
+			//deal with the whole number part of the rate
+			let howManyItems = grabValue(type.rate);
+			if(howManyItems >= 1)
+				for(; 1 <= howManyItems; howManyItems--) {
 					addItemInChunk(type, i);
 					itemCount++;
 				}
+
+			//add the percentage part
+			if(Math.random() < howManyItems) {
+				addItemInChunk(type, i);
+				itemCount++;
 			}
-		}
-	}
+		});
+	});
 
-
-	itemTypes.forEach(type => {
-
-		if(typeof type.minimumPerSide === "undefined")
-			addForEachChunk(type);
-
-		else {
-			itemCount = 0;
-			while(itemCount < type.minimumPerSide)
-				addForEachChunk(type, false, true);
-
-			itemCount = 0;
-			while(itemCount < type.minimumPerSide)
-				addForEachChunk(type, true, false);
-		}
+	world.placements.forEach(placement => {
+		addItem(placement.item, vec2.fromValues(...placement.position), placement.angle);
 	});
 }
 

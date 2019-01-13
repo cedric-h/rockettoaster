@@ -9,7 +9,7 @@ window.ecs = new ecslib.EntityComponentSystem();
 window.entities = new ecslib.EntityPool();
 
 window.camera = {
-	position: [0, -5]
+	position: [0, 0]
 };
 
 function startUpdateLoop() {

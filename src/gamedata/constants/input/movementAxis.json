@@ -1,0 +1,21 @@
+{
+	"values": [0, 0],
+	"keys": {
+		"a":{
+			"coefficient": -1,
+			"direction": 0
+		},
+		"d": {
+			"coefficient": 1,
+			"direction": 0
+		},
+		"s": {
+			"coefficient": -1,
+			"direction": 1
+		},
+		"w": {
+			"coefficient": 1,
+			"direction": 1
+		}
+	}
+}

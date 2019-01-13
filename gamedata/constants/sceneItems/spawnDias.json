@@ -1,0 +1,59 @@
+{
+    "name": "spawnDias",
+    "density": 0,
+    "size": {
+        "width": 4.85,
+        "height": 1.6
+    },
+	"layFlat": false,
+    "components": [
+        {
+            "name": "appearance",
+            "object": {
+                "color": "slategray"
+            }
+        },
+		{
+			"name": "playerSpawnPoint"
+		},
+        {
+            "name": "health",
+            "value": 9999999
+        },
+        {
+            "name": "damageParticles",
+            "object": {
+                "spread": 1.5707963267948966,
+                "perDamagePointDealt": 2,
+                "size": {
+                    "min": 0.2,
+                    "max": 0.8
+                },
+                "force": {
+                    "min": 2,
+                    "max": 3.5
+                },
+                "lifeTime": {
+                    "min": 500,
+                    "max": 750
+                }
+            }
+        },
+        {
+            "name": "deathParticles",
+            "object": {
+                "spread": 0.6283185307179586,
+                "count": 3,
+                "size": {
+                    "min": 1,
+                    "max": 1.75
+                },
+                "force": 2,
+                "lifeTime": {
+                    "min": 1000,
+                    "max": 2000
+                }
+            }
+        }
+    ]
+}

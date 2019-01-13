@@ -1,5 +1,6 @@
 {
     "name": "bush",
+	"putOnGround": true,
     "rate": 2.5,
     "centerDistanceBounds": {
         "min": 0.21,
